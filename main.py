@@ -3,10 +3,16 @@
 from argparse import ArgumentParser, RawTextHelpFormatter
 import sys
 
-from PySide6.QtWidgets import (QApplication)
-
+from PySide6.QtGui import (QAction, QClipboard, QColorSpace, QGuiApplication,
+                           QImage, QImageReader, QImageWriter, QKeySequence,
+                           QPalette, QPainter, QPixmap, QScreen)
+from PySide6.QtWidgets import (QApplication, QDialog, QFileDialog, QLabel,
+                               QMainWindow, QMenuBar, QMessageBox, QScrollArea,
+                               QScrollBar, QSizePolicy, QStatusBar, QDockWidget)
+from PySide6.QtCore import Qt
 from imageviewer import ImageViewer
 from dynamiclayouts import Dialog
+from mainwindow import Window
 
 if __name__ == '__main__':
     # arg_parser = ArgumentParser(description="Image Viewer",
@@ -15,10 +21,11 @@ if __name__ == '__main__':
     # args = arg_parser.parse_args()
 
     app = QApplication(sys.argv)
-    image_viewer = ImageViewer(application=app)
-    dialog = Dialog(image_viewer=image_viewer, application=app)
-    dialog.show()
-
+    # image_viewer = ImageViewer(application=app)
+    main_window = Window(application=app)
+    main_window.show()
+    # dialog = Dialog(image_viewer=image_viewer, application=app, mode=0)
+    # dialog.show()
 
     # if args.file and not image_viewer.load_file(args.file):
     #     sys.exit(-1)

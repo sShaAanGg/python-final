@@ -3,11 +3,11 @@
 from argparse import ArgumentParser, RawTextHelpFormatter
 import sys
 
-from PySide6.QtCore import Qt, QSize
+from PySide6.QtCore import Qt, QSize, Slot
 from PySide6.QtWidgets import (QApplication, QDialog, QLayout, QGridLayout,
                                QMessageBox, QGroupBox, QSpinBox, QSlider,
                                QProgressBar, QDial, QDialogButtonBox,
-                               QComboBox, QLabel)
+                               QComboBox, QLabel, QMainWindow)
 
 
 arg_parser = ArgumentParser(description="Image Viewer",
@@ -16,27 +16,32 @@ arg_parser.add_argument('file', type=str, nargs='?', help='Image file')
 args = arg_parser.parse_args()
 
 class Dialog(QDialog):
-    def __init__(self, image_viewer, application):
+    def __init__(self, image_viewer, application, mode):
         super().__init__()
+        self.mode = mode
         self.app = application
         self.image_viewer = image_viewer
         self._image_label = QLabel()
-        self.widgets = []
+        if (mode != 0):
+            self._image_label = image_viewer._image_label
+        else:
+            self.widgets = []
 
-        self.create_rotable_group_box()
-        # self.create_options_group_box()
-        self.create_button_box()
+            # self.create_rotable_group_box()
+            # self.create_options_group_box()
+            self.create_button_box()
+            self.label = QLabel("Click Classify or Attack and then choose an image")
+            main_layout = QGridLayout()
+            main_layout.addWidget(self.label, 0, 0)
+            # main_layout.addWidget(self._rotable_group_box, 0, 0)
+            # main_layout.addWidget(self._image_label, 1, 0)
+            main_layout.addWidget(self._button_box, 2, 0)
+            main_layout.setSizeConstraint(QLayout.SetMaximumSize)
 
-        main_layout = QGridLayout()
-        main_layout.addWidget(self._rotable_group_box, 0, 0)
-        main_layout.addWidget(self._image_label, 1, 0)
-        main_layout.addWidget(self._button_box, 2, 0)
-        main_layout.setSizeConstraint(QLayout.SetMinimumSize)
+            self._main_layout = main_layout
+            self.setLayout(self._main_layout)
 
-        self._main_layout = main_layout
-        self.setLayout(self._main_layout)
-
-        self.setWindowTitle("Dynamic Layouts")
+            self.setWindowTitle("Adversarial Attacker")
 
 
     def show_help(self):
@@ -44,7 +49,7 @@ class Dialog(QDialog):
                             "This example shows how to change layouts "
                             "dynamically.")
     def classify(self):
-        
+        self.mode = 1
         # app = QApplication(sys.argv)
         # image_viewer = ImageViewer()
         if args.file and not self.image_viewer.load_file(args.file):
@@ -52,13 +57,15 @@ class Dialog(QDialog):
         self.image_viewer.show()
         self.image_viewer.activateWindow()
         self.image_viewer.setFocus()
+        self._image_label = self.image_viewer._image_label
+        
         # self._image_label = self.image_viewer._image_label
         # self.setLayout(self._main_layout)
         # self.app.setActiveWindow(self.image_viewer)
         # sys.exit(app.exec())
 
     def attack(self):
-        
+        self.mode = 2
         # app = QApplication(sys.argv)
         # image_viewer = ImageViewer()
         if args.file and not self.image_viewer.load_file(args.file):
@@ -67,20 +74,20 @@ class Dialog(QDialog):
         self.image_viewer.show()
         # sys.exit(app.exec())
 
-    def create_rotable_group_box(self):
-        self._rotable_group_box = QGroupBox("Widgets")
-        self.widgets.append(self._image_label)
-        self.widgets.append(QSpinBox())
-        self.widgets.append(QSlider())
-        self.widgets.append(QDial())
-        self.widgets.append(QProgressBar())
-        # count = len(self.widgets)
-        # for i in range(count):
-        #     element = self.widgets[(i + 1) % count]
-        #     self.widgets[i].valueChanged[int].connect(element.setValue)
+    # def create_rotable_group_box(self):
+    #     self._rotable_group_box = QGroupBox("Click Classify or Attack and then choose an image")
+    #     # self.widgets.append(self._image_label)
+    #     # self.widgets.append(QSpinBox())
+    #     # self.widgets.append(QSlider())
+    #     # self.widgets.append(QDial())
+    #     # self.widgets.append(QProgressBar())
+    #     # count = len(self.widgets)
+    #     # for i in range(count):
+    #     #     element = self.widgets[(i + 1) % count]
+    #     #     self.widgets[i].valueChanged[int].connect(element.setValue)
 
-        self._rotable_layout = QGridLayout()
-        self._rotable_group_box.setLayout(self._rotable_layout)
+    #     self._rotable_layout = QGridLayout()
+    #     self._rotable_group_box.setLayout(self._rotable_layout)
 
         # self.rotate_widgets()
 
@@ -94,9 +101,21 @@ class Dialog(QDialog):
 
         # rotate_widgets_button.clicked.connect(self.rotate_widgets)
         classify_button.clicked.connect(self.classify)
+        # classify_button.clicked.connect(self.accept)
         attack_button.clicked.connect(self.attack)
+        # attack_button.clicked.connect(self.accept)
         close_button.clicked.connect(self.close)
         help_button.clicked.connect(self.show_help)
+
+    @Slot()
+    def accept(self) -> None:
+        
+        return super().done(self.mode)
+    # @Slot()
+    # def _classify():
+        
+    # @Slot()
+    # def _attack():
 
     # def rotate_widgets(self):
     #     count = len(self.widgets)
