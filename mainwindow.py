@@ -8,7 +8,6 @@ from PySide6.QtWidgets import (QApplication, QDialog, QFileDialog, QLabel,
                                QMainWindow, QMenuBar, QMessageBox, QScrollArea,
                                QScrollBar, QSizePolicy, QStatusBar, QDockWidget, QDialogButtonBox, QPushButton, QButtonGroup)
 from PySide6.QtCore import Qt, Slot, QDir, QStandardPaths
-from dynamiclayouts import Dialog
 
 arg_parser = ArgumentParser(description="Image Viewer",
                                 formatter_class=RawTextHelpFormatter)
@@ -149,7 +148,7 @@ class Window(QMainWindow):
 
     def show_help(self):
         QMessageBox.information(self, "Adversarial Attacker Help",
-                                "Click Classify or Attack and then choose an image")
+                                "Choose an image and then click 'Classify' or 'Attack'")
     def _update_actions(self):
         # has_image = not self._image.isNull()
         # self._save_as_act.setEnabled(has_image)
@@ -215,9 +214,9 @@ class Window(QMainWindow):
         mime_types.sort()
 
         dialog.setMimeTypeFilters(mime_types)
-        dialog.selectMimeTypeFilter("image/jpeg")
+        dialog.selectMimeTypeFilter("image/png")
         dialog.setAcceptMode(acceptMode)
         if acceptMode == QFileDialog.AcceptSave:
-            dialog.setDefaultSuffix("jpg")
+            dialog.setDefaultSuffix("png")
 
     

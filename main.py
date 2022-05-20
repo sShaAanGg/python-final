@@ -1,17 +1,14 @@
 """PySide6 port of the widgets/imageviewer example from Qt v6.0"""
 
-from argparse import ArgumentParser, RawTextHelpFormatter
 import sys
 
-from PySide6.QtGui import (QAction, QClipboard, QColorSpace, QGuiApplication,
-                           QImage, QImageReader, QImageWriter, QKeySequence,
-                           QPalette, QPainter, QPixmap, QScreen)
+# from PySide6.QtGui import (QAction, QClipboard, QColorSpace, QGuiApplication,
+#                            QImage, QImageReader, QImageWriter, QKeySequence,
+#                            QPalette, QPainter, QPixmap, QScreen)
 from PySide6.QtWidgets import (QApplication, QDialog, QFileDialog, QLabel,
                                QMainWindow, QMenuBar, QMessageBox, QScrollArea,
                                QScrollBar, QSizePolicy, QStatusBar, QDockWidget)
 from PySide6.QtCore import Qt
-from imageviewer import ImageViewer
-from dynamiclayouts import Dialog
 from mainwindow import Window
 
 if __name__ == '__main__':
