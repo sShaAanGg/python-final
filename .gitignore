@@ -1,6 +1,9 @@
 # Virual Environment files
 project/
 
+# image files
+*.png
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

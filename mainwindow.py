@@ -51,17 +51,21 @@ class Window(QMainWindow):
         self._open_act.triggered.connect(self._open)
         self._open_act.setShortcut(QKeySequence.Open)
 
+        self._save_as_act = file_menu.addAction("&Save As...")
+        self._save_as_act.triggered.connect(self._save_as)
+        self._save_as_act.setEnabled(False)
+
         view_menu = self.menuBar().addMenu("&View")
 
-        self._zoom_in_act = view_menu.addAction("Zoom &In (25%)")
-        self._zoom_in_act.setShortcut(QKeySequence.ZoomIn)
-        self._zoom_in_act.triggered.connect(self._zoom_in)
-        self._zoom_in_act.setEnabled(False)
+        # self._zoom_in_act = view_menu.addAction("Zoom &In (25%)")
+        # self._zoom_in_act.setShortcut(QKeySequence.ZoomIn)
+        # self._zoom_in_act.triggered.connect(self._zoom_in)
+        # self._zoom_in_act.setEnabled(False)
 
-        self._zoom_out_act = view_menu.addAction("Zoom &Out (25%)")
-        self._zoom_out_act.triggered.connect(self._zoom_out)
-        self._zoom_out_act.setShortcut(QKeySequence.ZoomOut)
-        self._zoom_out_act.setEnabled(False)
+        # self._zoom_out_act = view_menu.addAction("Zoom &Out (25%)")
+        # self._zoom_out_act.triggered.connect(self._zoom_out)
+        # self._zoom_out_act.setShortcut(QKeySequence.ZoomOut)
+        # self._zoom_out_act.setEnabled(False)
 
         self._normal_size_act = view_menu.addAction("&Normal Size")
         self._normal_size_act.triggered.connect(self._normal_size)
@@ -96,18 +100,12 @@ class Window(QMainWindow):
         self.mode = 1
         if args.file and not self.load_file(args.file):
             sys.exit(-1)
-        
-        # self._image_label = self.image_viewer._image_label
-        # self.setLayout(self._main_layout)
-        # self.app.setActiveWindow(self.image_viewer)
-        # sys.exit(app.exec())
 
     def attack(self):
         self.mode = 2
         if args.file and not self.load_file(args.file):
             sys.exit(-1)
         
-        # sys.exit(app.exec())
 
     def load_file(self, fileName):
         reader = QImageReader(fileName)
@@ -139,20 +137,31 @@ class Window(QMainWindow):
         self._scale_factor = 1.0
 
         self._scroll_area.setVisible(True)
-        # self._print_act.setEnabled(True)
         self._fit_to_window_act.setEnabled(True)
         self._update_actions()
 
         if not self._fit_to_window_act.isChecked():
             self._image_label.adjustSize()
 
+    def _save_file(self, fileName):
+        writer = QImageWriter(fileName)
+
+        native_filename = QDir.toNativeSeparators(fileName)
+        if not writer.write(self._image):
+            error = writer.errorString()
+            message = f"Cannot write {native_filename}: {error}"
+            QMessageBox.information(self, QGuiApplication.applicationDisplayName(),
+                                    message)
+            return False
+        self.statusBar().showMessage(f'Wrote "{native_filename}"')
+        return True
+
     def show_help(self):
         QMessageBox.information(self, "Adversarial Attacker Help",
                                 "Choose an image and then click 'Classify' or 'Attack'")
     def _update_actions(self):
-        # has_image = not self._image.isNull()
-        # self._save_as_act.setEnabled(has_image)
-        # self._copy_act.setEnabled(has_image)
+        has_image = not self._image.isNull()
+        self._save_as_act.setEnabled(has_image)
         enable_zoom = not self._fit_to_window_act.isChecked()
         self._zoom_in_act.setEnabled(enable_zoom)
         self._zoom_out_act.setEnabled(enable_zoom)
@@ -175,14 +184,6 @@ class Window(QMainWindow):
         scrollBar.setValue(pos)
 
     @Slot()
-    def _zoom_in(self):
-        self._scale_image(1.25)
-
-    @Slot()
-    def _zoom_out(self):
-        self._scale_image(0.8)
-
-    @Slot()
     def _normal_size(self):
         self._image_label.adjustSize()
         self._scale_factor = 1.0
@@ -203,6 +204,14 @@ class Window(QMainWindow):
                and not self.load_file(dialog.selectedFiles()[0])):
             pass
     
+    @Slot()
+    def _save_as(self):
+        dialog = QFileDialog(self, "Save File As")
+        self._initialize_image_filedialog(dialog, QFileDialog.AcceptSave)
+        while (dialog.exec() == QDialog.Accepted
+               and not self._save_file(dialog.selectedFiles()[0])):
+            pass
+
     def _initialize_image_filedialog(self, dialog, acceptMode):
         if self._first_file_dialog:
             self._first_file_dialog = False
