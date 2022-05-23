@@ -2,12 +2,10 @@
 
 import sys
 
-from PySide6.QtWidgets import (QApplication, QDialog, QFileDialog, QLabel,
-                               QMainWindow, QMenuBar, QMessageBox, QScrollArea,
-                               QScrollBar, QSizePolicy, QStatusBar, QDockWidget)
-from PySide6.QtCore import Qt
-from mainwindow import Window
-from ui_mainwindow import Ui_MainWindow, MainWindow
+from PySide6.QtWidgets import QApplication
+# from PySide6.QtCore import Qt
+# from mainwindow import Window
+from ui_mainwindow import MainWindow
 
 if __name__ == '__main__':
     # arg_parser = ArgumentParser(description="Image Viewer",

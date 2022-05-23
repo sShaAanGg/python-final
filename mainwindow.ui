@@ -179,7 +179,10 @@
     <property name="widgetResizable">
      <bool>true</bool>
     </property>
-    <widget class="QWidget" name="scrollAreaWidgetContents_2">
+    <widget class="QLabel" name="label_image">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
      <property name="geometry">
       <rect>
        <x>0</x>
@@ -188,34 +191,15 @@
        <height>409</height>
       </rect>
      </property>
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
+     <property name="text">
+      <string/>
      </property>
-     <widget class="QLabel" name="label_image">
-      <property name="enabled">
-       <bool>true</bool>
-      </property>
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>909</width>
-        <height>409</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-      <property name="scaledContents">
-       <bool>true</bool>
-      </property>
-      <property name="isVisible" stdset="0">
-       <bool>false</bool>
-      </property>
-     </widget>
+     <property name="scaledContents">
+      <bool>true</bool>
+     </property>
+     <property name="isVisible" stdset="0">
+      <bool>false</bool>
+     </property>
     </widget>
    </widget>
    <zorder>label_help</zorder>

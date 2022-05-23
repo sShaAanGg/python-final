@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'mainwindowvYaqTS.ui'
+## Form generated from reading UI file 'mainwindowfcsaMm.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.2.4
 ##
@@ -48,6 +48,7 @@ class MainWindow(QMainWindow):
     def _open(self):
         dialog = QFileDialog(self, "Open File")
         self._initialize_image_filedialog(dialog, QFileDialog.AcceptOpen)
+        dialog.setDirectory('./')
         while (dialog.exec() == QDialog.Accepted
                and not self.load_file(dialog.selectedFiles()[0])):
             pass
@@ -56,6 +57,7 @@ class MainWindow(QMainWindow):
     def _save_as(self):
         dialog = QFileDialog(self, "Save File As")
         self._initialize_image_filedialog(dialog, QFileDialog.AcceptSave)
+        dialog.setDirectory('./')
         while (dialog.exec() == QDialog.Accepted
                and not self._save_file(dialog.selectedFiles()[0])):
             pass
@@ -224,21 +226,13 @@ class Ui_MainWindow(object):
         self.scrollArea.setGeometry(QRect(20, 120, 911, 411))
         self.scrollArea.setSizeAdjustPolicy(QAbstractScrollArea.AdjustToContents)
         self.scrollArea.setWidgetResizable(True)
-        self.scrollAreaWidgetContents_2 = QWidget()
-        self.scrollAreaWidgetContents_2.setObjectName(u"scrollAreaWidgetContents_2")
-        self.scrollAreaWidgetContents_2.setGeometry(QRect(0, 0, 909, 409))
-        sizePolicy1 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        sizePolicy1.setHorizontalStretch(0)
-        sizePolicy1.setVerticalStretch(0)
-        sizePolicy1.setHeightForWidth(self.scrollAreaWidgetContents_2.sizePolicy().hasHeightForWidth())
-        self.scrollAreaWidgetContents_2.setSizePolicy(sizePolicy1)
-        self.label_image = QLabel(self.scrollAreaWidgetContents_2)
+        self.label_image = QLabel()
         self.label_image.setObjectName(u"label_image")
         self.label_image.setEnabled(True)
         self.label_image.setGeometry(QRect(0, 0, 909, 409))
         self.label_image.setScaledContents(True)
         self.label_image.setProperty("isVisible", False)
-        self.scrollArea.setWidget(self.scrollAreaWidgetContents_2)
+        self.scrollArea.setWidget(self.label_image)
         MainWindow.setCentralWidget(self.centralwidget)
         self.label_help.raise_()
         self.button_attack.raise_()
