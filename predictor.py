@@ -12,7 +12,11 @@ def predict(img):
 
     # decode the results into a list of tuples (class, description, probability)
     # (one such list for each sample in the batch)
-    print('Predicted:', decode_predictions(preds, top=3)[0])
+    ans = decode_predictions(preds, top=3)[0]
+    print("top 1: ", ans[0][1], ans[0][2])
+    print("top 2: ", ans[1][1], ans[1][2])
+    print("top 3: ", ans[2][1], ans[2][2])
+    # print('Predicted:', decode_predictions(preds, top=3)[0])
 
 if __name__ == '__main__':
         img_path = 'cat.jpg'
