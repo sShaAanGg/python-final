@@ -4,6 +4,7 @@ from tensorflow.keras.applications.resnet50 import preprocess_input, decode_pred
 import numpy as np
 
 model = ResNet50(weights='imagenet')
+
 def predict(img):
     x = image.img_to_array(img)
     x = np.expand_dims(x, axis=0)
