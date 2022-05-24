@@ -58,7 +58,7 @@ model = nn.Sequential(
 model = model.eval()
 
 def attack(img):
-    attacker = torchattacks.BIM(model, eps=16/255, alpha=2/255, steps=100)
+    attacker = torchattacks.BIM(model, eps=8/255, alpha=2/255, steps=100)
     # attacker = torchattacks.CW(model, c=1, lr=0.01, steps=100, kappa=0),
     # label, _, _ = predict(img)
     adv_images = attacker(img, labels)

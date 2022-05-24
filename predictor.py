@@ -28,10 +28,9 @@ def predict(img):
     return top_1, top_2, top_3
 
 if __name__ == '__main__':
-        # img_path = 'test_img/imagenet/tiger_cat/cat.jpg'
+        # img_path = 'test_img/overskirt.jpg'
         img_path = 'result.png'
         # img_path = 'panda.jpg'
-        # img = image.load_img(img_path, target_size=(224, 224))
         img = cv2.imread(img_path)
-
+        img = cv2.resize(img, (224, 224))
         predict(img)

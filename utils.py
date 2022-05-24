@@ -14,7 +14,7 @@ def image_folder_custom_label(root, transform, idx2label) :
     
     old_data = dsets.ImageFolder(root=root, transform=transform)
     old_classes = old_data.classes
-    
+    print(old_classes)
     label2idx = {}
     
     for i, item in enumerate(idx2label) :
