@@ -8,3 +8,6 @@ source project/bin/activate
 ## Install project requirements
 pip install -r requirements.txt
 
+
+## References
+https://keras.io/api/applications/resnet/#resnet50-function
