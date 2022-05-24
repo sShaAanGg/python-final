@@ -14,3 +14,4 @@ https://keras.io/api/applications/resnet/#resnet50-function
 https://www.tensorflow.org/api_docs/python/tf/keras/preprocessing/image/ImageDataGenerator
 https://www.tensorflow.org/api_docs/python/tf/keras/utils/load_img
 https://www.tensorflow.org/api_docs/python/tf/keras/utils/img_to_array
+https://www.tensorflow.org/api_docs/python/tf/keras/applications/resnet50/preprocess_input
