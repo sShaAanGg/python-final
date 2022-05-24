@@ -5,18 +5,23 @@ import numpy as np
 
 model = ResNet50(weights='imagenet')
 
+# it will return top 3 labels as a list -> (label, confidence)
 def predict(img):
-    x = image.img_to_array(img)
+    x = image.img_to_array(img) # Converts a PIL Image instance to a Numpy array
     x = np.expand_dims(x, axis=0)
+
+    # The images are converted from RGB to BGR, then each color channel is zero-centered with respect to the ImageNet dataset
     x = preprocess_input(x)
+
+    # predict label
     preds = model.predict(x)
 
     # decode the results into a list of tuples (class, description, probability)
-    # (one such list for each sample in the batch)
-    ans = decode_predictions(preds, top=3)[0]
-    top_1 = ans[0][1], ans[0][2]
-    top_2 = ans[1][1], ans[1][2]
-    top_3 = ans[2][1], ans[2][2]
+    results = decode_predictions(preds, top=3)[0]
+
+    top_1 = results[0][1], results[0][2]
+    top_2 = results[1][1], results[1][2]
+    top_3 = results[2][1], results[2][2]
     print("top 1: ", top_1)
     print("top 2: ", top_2)
     print("top 3: ", top_3)
