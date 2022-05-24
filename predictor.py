@@ -2,7 +2,7 @@ import numpy as np
 from tensorflow.keras.preprocessing import image
 from tensorflow.keras.applications.resnet50 import ResNet50
 from tensorflow.keras.applications.resnet50 import preprocess_input, decode_predictions
-
+import cv2
 model = ResNet50(weights='imagenet')
 
 # it will return top 3 labels as a list -> (label, confidence)
@@ -28,6 +28,10 @@ def predict(img):
     return top_1, top_2, top_3
 
 if __name__ == '__main__':
-        img_path = 'test_img/cat.jpg'
-        img = image.load_img(img_path, target_size=(224, 224))
+        # img_path = 'test_img/imagenet/tiger_cat/cat.jpg'
+        img_path = 'result.png'
+        # img_path = 'panda.jpg'
+        # img = image.load_img(img_path, target_size=(224, 224))
+        img = cv2.imread(img_path)
+
         predict(img)
