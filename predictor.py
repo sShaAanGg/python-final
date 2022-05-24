@@ -28,7 +28,7 @@ def predict(img):
     return top_1, top_2, top_3
 
 if __name__ == '__main__':
-        # img_path = 'test_img/overskirt.jpg'
+        # img_path = 'test_img/school_bus.jpg'
         img_path = 'result.png'
         # img_path = 'panda.jpg'
         img = cv2.imread(img_path)
