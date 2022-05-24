@@ -21,7 +21,6 @@ def predict(img):
     print("top 2: ", top_2)
     print("top 3: ", top_3)
     return top_1, top_2, top_3
-    # print('Predicted:', decode_predictions(preds, top=3)[0])
 
 if __name__ == '__main__':
         img_path = 'test_img/cat.jpg'
