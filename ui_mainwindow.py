@@ -64,15 +64,22 @@ class MainWindow(QMainWindow):
     
     @Slot()
     def _attack(self):
-        self.mode = 1
+        if (self.ui.label_image.property("isActivated")):
+            self.mode = 1
+            self.ui.button_classify.hide()
     
     @Slot()
     def _classify(self):
-        self.mode = 2
+        if (self.ui.label_image.property("isActivated")):
+            self.mode = 2
+            self.ui.button_attack.hide()
 
     @Slot()
     def _recover(self):
         self.mode = 0
+        self._set_image(QImage())
+        self.ui.label_image.setProperty("isActivated", False)
+        self.ui.scrollArea.setVisible(False)
 
     @Slot()
     def _normal_size(self):
@@ -88,6 +95,7 @@ class MainWindow(QMainWindow):
         self._update_actions()
 
     def load_file(self, fileName):
+        self.ui.label_image.setProperty("isActivated", True)
         reader = QImageReader(fileName)
         reader.setAutoTransform(True)
         new_image = reader.read()
@@ -232,6 +240,7 @@ class Ui_MainWindow(object):
         self.label_image.setGeometry(QRect(0, 0, 909, 409))
         self.label_image.setScaledContents(True)
         self.label_image.setProperty("isVisible", False)
+        self.label_image.setProperty("isActivated", False)
         self.scrollArea.setWidget(self.label_image)
         MainWindow.setCentralWidget(self.centralwidget)
         self.label_help.raise_()
@@ -261,8 +270,8 @@ class Ui_MainWindow(object):
         self.menuView.addAction(self.actionNormal_size)
 
         self.retranslateUi(MainWindow)
-        self.button_classify.clicked.connect(self.button_attack.hide)
-        self.button_attack.clicked.connect(self.button_classify.hide)
+        # self.button_classify.clicked.connect(self.button_attack.hide)
+        # self.button_attack.clicked.connect(self.button_classify.hide)
         self.button_again.clicked.connect(self.button_attack.show)
         self.button_again.clicked.connect(self.button_classify.show)
 

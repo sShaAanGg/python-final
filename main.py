@@ -16,6 +16,9 @@ if __name__ == '__main__':
     app = QApplication(sys.argv)
     mainWindow = MainWindow()
     mainWindow.show()
+    with open("qss/coffee.qss", "r") as f:
+        _style = f.read()
+        app.setStyleSheet(_style)
     # main_window = Window(application=app)
     # main_window.show()
 
