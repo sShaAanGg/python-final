@@ -2,14 +2,13 @@ import cv2
 import numpy as np
 from predictor import predict
 
-
 def add_random_noise(img):
     mean = 0
     var = 10
     sigma = var ** 0.8
     gaussian = np.random.normal(mean, sigma, (img.shape[0],img.shape[1], img.shape[2])) 
     noisy_image = img + gaussian
-    cv2.imwrite("noisy_image.jpg", noisy_image)
+    cv2.imwrite("random_noise_image.jpg", noisy_image)
     return noisy_image
 
 if __name__ == '__main__':

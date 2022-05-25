@@ -3,3 +3,5 @@ torchattacks
 torchvision
 Numpy
 torch
+tensorflow-gpu
+opencv-python
