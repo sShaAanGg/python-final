@@ -1,7 +1,7 @@
-tensorflow==2.6.0
-torchattacks
-torchvision
 Numpy
 torch
-tensorflow-gpu
+torchvision
+torchattacks
 opencv-python
+tensorflow-gpu
+tensorflow==2.6.0
