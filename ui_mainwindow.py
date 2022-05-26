@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'mainwindowfcsaMm.ui'
+## Form generated from reading UI file 'mainwindow.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.2.4
+## Created by: Qt User Interface Compiler version 6.3.0
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -18,7 +18,7 @@ from PySide6.QtGui import (QAction, QBrush, QColor, QConicalGradient,
     QTransform, QImageReader, QGuiApplication, QImageWriter, QColorSpace)
 from PySide6.QtWidgets import (QApplication, QScrollArea, QLabel, QMainWindow,
     QMenu, QMenuBar, QPushButton, QSizePolicy,
-    QStatusBar, QWidget, QFileDialog, QDialog, QMessageBox, QAbstractScrollArea)
+    QStatusBar, QWidget, QFileDialog, QDialog, QMessageBox, QAbstractScrollArea, QFrame)
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -198,7 +198,7 @@ class Ui_MainWindow(object):
         self.centralwidget.setAutoFillBackground(False)
         self.label_help = QLabel(self.centralwidget)
         self.label_help.setObjectName(u"label_help")
-        self.label_help.setGeometry(QRect(0, 10, 951, 51))
+        self.label_help.setGeometry(QRect(-10, 10, 461, 51))
         font = QFont()
         font.setPointSize(12)
         self.label_help.setFont(font)
@@ -206,7 +206,7 @@ class Ui_MainWindow(object):
         self.label_help.setMargin(-5)
         self.button_classify = QPushButton(self.centralwidget)
         self.button_classify.setObjectName(u"button_classify")
-        self.button_classify.setGeometry(QRect(280, 60, 80, 40))
+        self.button_classify.setGeometry(QRect(20, 60, 80, 40))
         self.button_classify.setBaseSize(QSize(0, 0))
         font1 = QFont()
         font1.setPointSize(10)
@@ -216,18 +216,12 @@ class Ui_MainWindow(object):
         self.button_classify.setProperty("isActivated", False)
         self.button_attack = QPushButton(self.centralwidget)
         self.button_attack.setObjectName(u"button_attack")
-        self.button_attack.setGeometry(QRect(590, 60, 80, 40))
+        self.button_attack.setGeometry(QRect(160, 60, 80, 40))
         self.button_attack.setFont(font1)
         self.button_attack.setProperty("isActivated", False)
-        self.label_result = QLabel(self.centralwidget)
-        self.label_result.setObjectName(u"label_result")
-        self.label_result.setGeometry(QRect(30, 540, 891, 61))
-        self.label_result.setFont(font)
-        self.label_result.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
-        self.label_result.setProperty("isVisible", False)
         self.button_again = QPushButton(self.centralwidget)
         self.button_again.setObjectName(u"button_again")
-        self.button_again.setGeometry(QRect(840, 20, 81, 61))
+        self.button_again.setGeometry(QRect(450, 30, 81, 61))
         self.button_again.setFont(font1)
         self.scrollArea = QScrollArea(self.centralwidget)
         self.scrollArea.setObjectName(u"scrollArea")
@@ -240,22 +234,39 @@ class Ui_MainWindow(object):
         self.label_image.setGeometry(QRect(0, 0, 909, 409))
         self.label_image.setScaledContents(True)
         self.label_image.setProperty("isVisible", False)
-        self.label_image.setProperty("isActivated", False)
         self.scrollArea.setWidget(self.label_image)
+        self.button_add_noise = QPushButton(self.centralwidget)
+        self.button_add_noise.setObjectName(u"button_add_noise")
+        self.button_add_noise.setGeometry(QRect(300, 60, 80, 40))
+        self.button_add_noise.setFont(font1)
+        self.button_add_noise.setProperty("isActivated", False)
+        self.frame = QFrame(self.centralwidget)
+        self.frame.setObjectName(u"frame")
+        self.frame.setGeometry(QRect(20, 540, 911, 51))
+        self.frame.setFrameShape(QFrame.StyledPanel)
+        self.frame.setFrameShadow(QFrame.Raised)
+        self.label_result = QLabel(self.frame)
+        self.label_result.setObjectName(u"label_result")
+        self.label_result.setGeometry(QRect(0, 0, 911, 51))
+        self.label_result.setFont(font)
+        self.label_result.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
+        self.label_result.setProperty("isVisible", False)
         MainWindow.setCentralWidget(self.centralwidget)
         self.label_help.raise_()
         self.button_attack.raise_()
         self.button_classify.raise_()
-        self.label_result.raise_()
         self.button_again.raise_()
         self.scrollArea.raise_()
+        self.button_add_noise.raise_()
+        self.frame.raise_()
         self.statusbar = QStatusBar(MainWindow)
         self.statusbar.setObjectName(u"statusbar")
+        self.statusbar.setAutoFillBackground(False)
         self.statusbar.setSizeGripEnabled(True)
         MainWindow.setStatusBar(self.statusbar)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 960, 19))
+        self.menubar.setGeometry(QRect(0, 0, 960, 22))
         self.menuFile = QMenu(self.menubar)
         self.menuFile.setObjectName(u"menuFile")
         self.menuView = QMenu(self.menubar)
@@ -270,8 +281,6 @@ class Ui_MainWindow(object):
         self.menuView.addAction(self.actionNormal_size)
 
         self.retranslateUi(MainWindow)
-        # self.button_classify.clicked.connect(self.button_attack.hide)
-        # self.button_attack.clicked.connect(self.button_classify.hide)
         self.button_again.clicked.connect(self.button_attack.show)
         self.button_again.clicked.connect(self.button_classify.show)
 
@@ -296,9 +305,10 @@ class Ui_MainWindow(object):
         self.label_help.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><span style=\" font-weight:700;\">Choose an image and then click 'Classify' or 'Attack'</span></p></body></html>", None))
         self.button_classify.setText(QCoreApplication.translate("MainWindow", u"Classify", None))
         self.button_attack.setText(QCoreApplication.translate("MainWindow", u"Attack", None))
-        self.label_result.setText("")
         self.button_again.setText(QCoreApplication.translate("MainWindow", u"Try Again", None))
         self.label_image.setText("")
+        self.button_add_noise.setText(QCoreApplication.translate("MainWindow", u"Add Noise", None))
+        self.label_result.setText("")
         self.menuFile.setTitle(QCoreApplication.translate("MainWindow", u"File", None))
         self.menuView.setTitle(QCoreApplication.translate("MainWindow", u"View", None))
     # retranslateUi
