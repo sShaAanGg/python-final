@@ -1,16 +1,20 @@
 # python-final
 my final project of the course Programming in Python at NCU
 
-## Environment
-Linux Distribution: Ubuntu-20.04
-Kernel version: 5.10.102.1-microsoft-standard-WSL2
-
 ## Virtual environment
 python3 -m venv project  
 source project/bin/activate (in bash or zsh)
 
 ## Installing project requirements
 pip install -r requirements.txt
+
+## References
+[Source of coffee.qss](https://code.qt.io/cgit/qt/qtbase.git/tree/examples/widgets/widgets/stylesheet/qss/coffee.qss?h=6.3)  
+[Qt for Python Official Website](https://doc.qt.io/qtforpython/index.html)
+
+## Environment
+Linux Distribution: Ubuntu-20.04
+Kernel version: 5.10.102.1-microsoft-standard-WSL2
 
 ## python files
 
