@@ -274,7 +274,7 @@ class Ui_MainWindow(object):
         self.frame.setFrameShadow(QFrame.Raised)
         self.label_result = QLabel(self.frame)
         self.label_result.setObjectName(u"label_result")
-        self.label_result.setGeometry(QRect(0, 0, 400, 60))
+        self.label_result.setGeometry(QRect(0, 0, 560, 100))
         self.label_result.setFont(font)
         self.label_result.setAlignment(Qt.AlignCenter)
         self.label_result.setProperty("isVisible", False)
