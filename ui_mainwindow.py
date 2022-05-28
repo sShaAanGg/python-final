@@ -52,6 +52,13 @@ class MainWindow(QMainWindow):
         self.ui.button_add_noise.clicked.connect(self._add_noise)
         self.ui.button_again.clicked.connect(self._recover)
 
+        self.ui.button_attack_untargeted.clicked.connect(self._attack_untarget)
+        self.ui.button_attack_random.clicked.connect(self._attack_random)
+        self.ui.button_attack_least.clicked.connect(self._attack_least)
+        self.ui.button_attack_untargeted.hide()
+        self.ui.button_attack_random.hide()
+        self.ui.button_attack_least.hide()
+
         self.img_path = ""
         self.adv_images_exist = 0
     @Slot()
@@ -72,7 +79,22 @@ class MainWindow(QMainWindow):
         while (dialog.exec() == QDialog.Accepted
                and not self._save_file(dialog.selectedFiles()[0])):
             pass
-    
+
+    @Slot()
+    def _attack_untarget(self):
+        if (self.mode == 1):
+
+            return
+    @Slot()
+    def _attack_random(self):
+        if (self.mode == 1):
+
+            return
+    @Slot()
+    def _attack_least(self):
+        if (self.mode == 1):
+
+            return
     @Slot()
     def _attack(self):
 
@@ -90,6 +112,9 @@ class MainWindow(QMainWindow):
             self.load_file("D:/python_final/python-final/result.png")
             self.ui.label_result.setText("top 1: " + str(top_1) + '\n' + "top 2: " + str(top_2) + '\n' + "top 3: " + str(top_3))
             self.ui.button_again.show()
+            self.ui.button_attack_untargeted.show()
+            self.ui.button_attack_random.show()
+            self.ui.button_attack_least.show()
             self.ui.label_help.setText('You can click "Try Again" (F5) to try again')
     
     @Slot()
@@ -127,10 +152,9 @@ class MainWindow(QMainWindow):
         if (self.mode != 0):
             self.mode = 0
             self.ui.label_result.setText("")
-            self.ui.button_attack.hide()
-            self.ui.button_classify.hide()
-            self.ui.button_add_noise.hide()
-            self.ui.button_again.hide()
+            self.ui.button_attack_untargeted.hide()
+            self.ui.button_attack_random.hide()
+            self.ui.button_attack_least.hide()
             self._set_image(QImage())
             self.ui.label_help.setText("Choose an image (Ctrl-O)")
             self.ui.label_image.setProperty("isActivated", False)
@@ -314,8 +338,24 @@ class Ui_MainWindow(object):
         self.label_result.setObjectName(u"label_result")
         self.label_result.setGeometry(QRect(0, 0, 560, 100))
         self.label_result.setFont(font)
+        self.label_result.setTextFormat(Qt.MarkdownText)
         self.label_result.setAlignment(Qt.AlignCenter)
         self.label_result.setProperty("isVisible", False)
+        self.button_attack_untargeted = QPushButton(self.centralwidget)
+        self.button_attack_untargeted.setObjectName(u"button_attack_untargeted")
+        self.button_attack_untargeted.setGeometry(QRect(10, 150, 120, 40))
+        self.button_attack_untargeted.setFont(font1)
+        self.button_attack_untargeted.setProperty("isActivated", False)
+        self.button_attack_least = QPushButton(self.centralwidget)
+        self.button_attack_least.setObjectName(u"button_attack_least")
+        self.button_attack_least.setGeometry(QRect(10, 310, 120, 40))
+        self.button_attack_least.setFont(font1)
+        self.button_attack_least.setProperty("isActivated", False)
+        self.button_attack_random = QPushButton(self.centralwidget)
+        self.button_attack_random.setObjectName(u"button_attack_random")
+        self.button_attack_random.setGeometry(QRect(10, 230, 120, 40))
+        self.button_attack_random.setFont(font1)
+        self.button_attack_random.setProperty("isActivated", False)
         MainWindow.setCentralWidget(self.centralwidget)
         self.label_help.raise_()
         self.button_attack.raise_()
@@ -324,6 +364,9 @@ class Ui_MainWindow(object):
         self.scrollArea.raise_()
         self.button_add_noise.raise_()
         self.frame.raise_()
+        self.button_attack_untargeted.raise_()
+        self.button_attack_least.raise_()
+        self.button_attack_random.raise_()
         self.statusbar = QStatusBar(MainWindow)
         self.statusbar.setObjectName(u"statusbar")
         self.statusbar.setAutoFillBackground(False)
@@ -387,6 +430,18 @@ class Ui_MainWindow(object):
         self.button_add_noise.setShortcut(QCoreApplication.translate("MainWindow", u"Ctrl+N", None))
 #endif // QT_CONFIG(shortcut)
         self.label_result.setText("")
+        self.button_attack_untargeted.setText(QCoreApplication.translate("MainWindow", u"Untarget", None))
+#if QT_CONFIG(shortcut)
+        self.button_attack_untargeted.setShortcut(QCoreApplication.translate("MainWindow", u"F1", None))
+#endif // QT_CONFIG(shortcut)
+        self.button_attack_least.setText(QCoreApplication.translate("MainWindow", u"Least Likely", None))
+#if QT_CONFIG(shortcut)
+        self.button_attack_least.setShortcut(QCoreApplication.translate("MainWindow", u"F3", None))
+#endif // QT_CONFIG(shortcut)
+        self.button_attack_random.setText(QCoreApplication.translate("MainWindow", u"Random target", None))
+#if QT_CONFIG(shortcut)
+        self.button_attack_random.setShortcut(QCoreApplication.translate("MainWindow", u"F2", None))
+#endif // QT_CONFIG(shortcut)
         self.menuFile.setTitle(QCoreApplication.translate("MainWindow", u"File", None))
         self.menuView.setTitle(QCoreApplication.translate("MainWindow", u"View", None))
     # retranslateUi

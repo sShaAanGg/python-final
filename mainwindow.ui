@@ -249,6 +249,9 @@
      <property name="text">
       <string/>
      </property>
+     <property name="textFormat">
+      <enum>Qt::MarkdownText</enum>
+     </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
      </property>
@@ -257,6 +260,78 @@
      </property>
     </widget>
    </widget>
+   <widget class="QPushButton" name="button_attack_untargeted">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>150</y>
+      <width>120</width>
+      <height>40</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Untarget</string>
+    </property>
+    <property name="shortcut">
+     <string>F1</string>
+    </property>
+    <property name="isActivated" stdset="0">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="button_attack_least">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>310</y>
+      <width>120</width>
+      <height>40</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Least Likely</string>
+    </property>
+    <property name="shortcut">
+     <string>F3</string>
+    </property>
+    <property name="isActivated" stdset="0">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="button_attack_random">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>230</y>
+      <width>120</width>
+      <height>40</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Random target</string>
+    </property>
+    <property name="shortcut">
+     <string>F2</string>
+    </property>
+    <property name="isActivated" stdset="0">
+     <bool>false</bool>
+    </property>
+   </widget>
    <zorder>label_help</zorder>
    <zorder>button_attack</zorder>
    <zorder>button_classify</zorder>
@@ -264,6 +339,9 @@
    <zorder>scrollArea</zorder>
    <zorder>button_add_noise</zorder>
    <zorder>frame</zorder>
+   <zorder>button_attack_untargeted</zorder>
+   <zorder>button_attack_least</zorder>
+   <zorder>button_attack_random</zorder>
   </widget>
   <widget class="QStatusBar" name="statusbar">
    <property name="autoFillBackground">
