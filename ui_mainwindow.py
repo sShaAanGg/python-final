@@ -19,6 +19,8 @@ from PySide6.QtGui import (QAction, QBrush, QColor, QConicalGradient,
 from PySide6.QtWidgets import (QApplication, QScrollArea, QLabel, QMainWindow,
     QMenu, QMenuBar, QPushButton, QSizePolicy,
     QStatusBar, QWidget, QFileDialog, QDialog, QMessageBox, QAbstractScrollArea, QFrame)
+from PySide6 import QtGui
+QtGui.QImageReader.supportedImageFormats()
 
 import cv2
 from predictor import predict
@@ -149,6 +151,7 @@ class MainWindow(QMainWindow):
     def load_file(self, fileName):
         self.ui.label_image.setProperty("isActivated", True)
         reader = QImageReader(fileName)
+        # reader.setFormat('PNG')
         reader.setAutoTransform(True)
         new_image = reader.read()
         native_filename = QDir.toNativeSeparators(fileName)
@@ -219,15 +222,16 @@ class MainWindow(QMainWindow):
             directory = locations[-1] if locations else QDir.currentPath()
             dialog.setDirectory(directory)
 
-        mime_types = [m.data().decode('utf-8') for m in QImageWriter.supportedMimeTypes()]
-        mime_types.sort()
+        # mime_types = [m.data().decode('utf-8') for m in QImageWriter.supportedMimeTypes()]
+        # format = [m.data().decode('utf-8') for m in QImageWriter.supportedImageFormats()]
+        # format.sort()
+        # mime_types.sort()
 
-        dialog.setMimeTypeFilters(mime_types)
-        dialog.selectMimeTypeFilter("image/png")
-        dialog.selectMimeTypeFilter("image/jpg")
-        dialog.setAcceptMode(acceptMode)
-        if acceptMode == QFileDialog.AcceptSave:
-            dialog.setDefaultSuffix("png")
+        # dialog.setMimeTypeFilters(mime_types)
+        # dialog.selectMimeTypeFilter("image/png")
+        # dialog.setAcceptMode(acceptMode)
+        # if acceptMode == QFileDialog.AcceptSave:
+        #     dialog.setDefaultSuffix("png")
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
