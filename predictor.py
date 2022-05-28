@@ -22,9 +22,9 @@ def predict(img):
     # decode the results into a list of tuples (class, description, probability)
     results = decode_predictions(preds, top=3)[0]
 
-    top_1 = results[0][1], results[0][2]
-    top_2 = results[1][1], results[1][2]
-    top_3 = results[2][1], results[2][2]
+    top_1 = results[0][1], float("{:.3f}".format(results[0][2]))
+    top_2 = results[1][1], float("{:.3f}".format(results[1][2]))
+    top_3 = results[2][1], float("{:.3f}".format(results[2][2]))
     print("top 1: ", top_1)
     print("top 2: ", top_2)
     print("top 3: ", top_3)

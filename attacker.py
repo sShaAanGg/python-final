@@ -20,16 +20,16 @@ from predictor import predict
 # load data 
 class_idx = json.load(open("imagenet_class_index.json"))
 idx2label = [class_idx[str(k)][1] for k in range(len(class_idx))]
-# print(idx2label)
-# exit()
+
+
 transform = transforms.Compose([
     transforms.Resize((224, 224)),
     transforms.ToTensor(), # ToTensor : [0, 255] -> [0, 1]   
 ])
 
-imagnet_data = image_folder_custom_label(root='test_img\imagenet', transform=transform, idx2label=idx2label)
-data_loader = torch.utils.data.DataLoader(imagnet_data, batch_size=1, shuffle=False)
-images, labels = iter(data_loader).next()
+# imagnet_data = image_folder_custom_label(root='test_img\imagenet', transform=transform, idx2label=idx2label)
+# data_loader = torch.utils.data.DataLoader(imagnet_data, batch_size=1, shuffle=False)
+# images, labels = iter(data_loader).next()
 # print("True Image & True Label")
 # print(images)
 # imshow(torchvision.utils.make_grid(images, normalize=True), [imagnet_data.classes[i] for i in labels])
@@ -60,6 +60,9 @@ model = nn.Sequential(
 model = model.eval()
 
 def attack(img, mode=None):
+    imagnet_data = image_folder_custom_label(root='test_img\imagenet', transform=transform, idx2label=idx2label)
+    data_loader = torch.utils.data.DataLoader(imagnet_data, batch_size=1, shuffle=False)
+    images, labels = iter(data_loader).next()
     # attacker = torchattacks.BIM(model, eps=8/255, alpha=4/255, steps=150)
     # attacker = torchattacks.CW(model, c=0.1, steps=1000, lr=0.01)
     # attacker = torchattacks.CW(model, c=1, lr=0.01, steps=100, kappa=0),
@@ -72,7 +75,7 @@ def attack(img, mode=None):
         attacker.set_mode_targeted_least_likely(1)  # Targeted attack
 
     # attack start
-    adv_images = attacker(img, labels)
+    adv_images = attacker(images, labels)
 
     outputs = model(adv_images)
     m = nn.Softmax(dim=1)
@@ -81,9 +84,9 @@ def attack(img, mode=None):
     _, pre = torch.topk(outputs.data, 3)
     # _, pre = torch.max(outputs.data, 1)
     prob_list = prob[0].tolist()[0]
-    top_1 = imagnet_data.classes[pre[0][0]], prob_list[0]
-    top_2 = imagnet_data.classes[pre[0][1]], prob_list[1]
-    top_3 = imagnet_data.classes[pre[0][1]], prob_list[2]
+    top_1 = imagnet_data.classes[pre[0][0]], float("{:.3f}".format(prob_list[0]))
+    top_2 = imagnet_data.classes[pre[0][1]], float("{:.3f}".format(prob_list[1]))
+    top_3 = imagnet_data.classes[pre[0][2]], float("{:.3f}".format(prob_list[2]))
 
     print("attack finished!")
     print(top_1)
@@ -98,7 +101,7 @@ def attack(img, mode=None):
     npimg = cv2.cvtColor(npimg, cv2.COLOR_BGR2RGB)
     cv2.imwrite("result/result.png", npimg)
     
-
+    return top_1, top_2, top_3
 
 if __name__ == '__main__':
-    attack(images)
+    pass
