@@ -103,7 +103,7 @@ def attack(img, mode=None):
     npimg = cv2.cvtColor(npimg, cv2.COLOR_BGR2RGB)
     cv2.imwrite("result/result.png", npimg)
     
-    return top_1, top_2, top_3, adv_images
+    return top_1, top_2, top_3
 
 if __name__ == '__main__':
     pass
