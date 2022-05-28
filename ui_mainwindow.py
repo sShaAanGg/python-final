@@ -216,7 +216,7 @@ class MainWindow(QMainWindow):
 
         dialog.setMimeTypeFilters(mime_types)
         dialog.selectMimeTypeFilter("image/png")
-        dialog.selectMimeTypeFilter("image/png")
+        dialog.selectMimeTypeFilter("image/jpg")
         dialog.setAcceptMode(acceptMode)
         if acceptMode == QFileDialog.AcceptSave:
             dialog.setDefaultSuffix("png")
