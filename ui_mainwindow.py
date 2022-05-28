@@ -338,7 +338,7 @@ class Ui_MainWindow(object):
         self.label_result.setObjectName(u"label_result")
         self.label_result.setGeometry(QRect(0, 0, 560, 100))
         self.label_result.setFont(font)
-        self.label_result.setTextFormat(Qt.MarkdownText)
+        self.label_result.setTextFormat(Qt.PlainText)
         self.label_result.setAlignment(Qt.AlignCenter)
         self.label_result.setProperty("isVisible", False)
         self.button_attack_untargeted = QPushButton(self.centralwidget)
