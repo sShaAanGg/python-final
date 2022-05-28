@@ -19,8 +19,8 @@ from PySide6.QtGui import (QAction, QBrush, QColor, QConicalGradient,
 from PySide6.QtWidgets import (QApplication, QScrollArea, QLabel, QMainWindow,
     QMenu, QMenuBar, QPushButton, QSizePolicy,
     QStatusBar, QWidget, QFileDialog, QDialog, QMessageBox, QAbstractScrollArea, QFrame)
-from PySide6 import QtGui
-QtGui.QImageReader.supportedImageFormats()
+# from PySide6 import QtGui
+# QtGui.QImageReader.supportedImageFormats()
 
 import cv2
 from predictor import predict
@@ -122,10 +122,11 @@ class MainWindow(QMainWindow):
         if (self.ui.label_image.property("isActivated")):
             self.mode = 2
             # self.ui.button_attack.hide()
-            # print(self.img_path)
+            print(self.img_path)
             img = cv2.imread(self.img_path)
             img = cv2.resize(img, (224, 224))
             if self.adv_images_exist == 0:
+                # prepare_attack(img) 
                 top_1, top_2, top_3 = predict(img)
                 self.ui.label_result.setText("top 1: " + str(top_1) + '\n' + "top 2: " + str(top_2) + '\n' + "top 3: " + str(top_3))
             self.ui.button_again.show()
@@ -246,16 +247,16 @@ class MainWindow(QMainWindow):
             directory = locations[-1] if locations else QDir.currentPath()
             dialog.setDirectory(directory)
 
-        # mime_types = [m.data().decode('utf-8') for m in QImageWriter.supportedMimeTypes()]
-        # format = [m.data().decode('utf-8') for m in QImageWriter.supportedImageFormats()]
-        # format.sort()
-        # mime_types.sort()
+        mime_types = [m.data().decode('utf-8') for m in QImageWriter.supportedMimeTypes()]
+        format = [m.data().decode('utf-8') for m in QImageWriter.supportedImageFormats()]
+        format.sort()
+        mime_types.sort()
 
-        # dialog.setMimeTypeFilters(mime_types)
-        # dialog.selectMimeTypeFilter("image/png")
-        # dialog.setAcceptMode(acceptMode)
-        # if acceptMode == QFileDialog.AcceptSave:
-        #     dialog.setDefaultSuffix("png")
+        dialog.setMimeTypeFilters(mime_types)
+        dialog.selectMimeTypeFilter("image/png")
+        dialog.setAcceptMode(acceptMode)
+        if acceptMode == QFileDialog.AcceptSave:
+            dialog.setDefaultSuffix("png")
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):

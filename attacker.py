@@ -75,10 +75,9 @@ def attack(img, mode=None):
         attacker.set_mode_targeted_random()
     elif mode == "least_likely":
         attacker.set_mode_targeted_least_likely(1)  # Targeted attack
-
+    images = images.to(device)
     # attack start
     adv_images = attacker(images, labels)
-    adv_image = adv_images
     outputs = model(adv_images)
     m = nn.Softmax(dim=1)
     logits = m(outputs.data)
@@ -105,5 +104,26 @@ def attack(img, mode=None):
     
     return top_1, top_2, top_3
 
+# def predict():
+#     imagnet_data = image_folder_custom_label(root='test_img\imagenet', transform=transform, idx2label=idx2label)
+#     data_loader = torch.utils.data.DataLoader(imagnet_data, batch_size=1, shuffle=False)
+#     images, labels = iter(data_loader).next()
+#     images = images.to(device)
+#     outputs = model(images)
+#     m = nn.Softmax(dim=1)
+#     logits = m(outputs.data)
+#     prob = torch.topk(logits, 3)
+#     _, pre = torch.topk(outputs.data, 3)
+#     # _, pre = torch.max(outputs.data, 1)
+#     prob_list = prob[0].tolist()[0]
+#     top_1 = imagnet_data.classes[pre[0][0]], float("{:.3f}".format(prob_list[0]))
+#     top_2 = imagnet_data.classes[pre[0][1]], float("{:.3f}".format(prob_list[1]))
+#     top_3 = imagnet_data.classes[pre[0][2]], float("{:.3f}".format(prob_list[2]))
+
+#     print("attack finished!")
+#     print(top_1)
+#     print(top_2)
+#     print(top_3)
+#     return top_1, top_2, top_3
 if __name__ == '__main__':
     pass
