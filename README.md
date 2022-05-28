@@ -1,30 +1,44 @@
 # python-final
-my final project of the course Programming in Python at NCU
+The final project of the course Programming in Python at NCU: An adversarial attacker supported in GUI
+
+## Running the application
+```
+python3 main.py
+```
 
 ## Virtual environment
 ### Creation
+```
 python3 -m venv project
+```
 ### Activation
-source project/bin/activate (in bash or zsh; linux or mac)  
-.\project\Scripts\activate.bat (in powershell or cmd; Windows)
-
+On unix-like OS (in bash or zsh)
+```
+source project/bin/activate
+```
+On Win10 (in powershell or cmd)
+```
+.\project\Scripts\activate.bat
+```
 ## Installing project requirements
+```
 pip install -r requirements.txt
-
+```
 
 ## References
-https://keras.io/api/applications/resnet/#resnet50-function
-https://www.tensorflow.org/api_docs/python/tf/keras/preprocessing/image/ImageDataGenerator
-https://www.tensorflow.org/api_docs/python/tf/keras/utils/load_img
-https://www.tensorflow.org/api_docs/python/tf/keras/utils/img_to_array
-https://www.tensorflow.org/api_docs/python/tf/keras/applications/resnet50/preprocess_input
+https://keras.io/api/applications/resnet/#resnet50-function  
+https://www.tensorflow.org/api_docs/python/tf/keras/preprocessing/image/ImageDataGenerator  
+https://www.tensorflow.org/api_docs/python/tf/keras/utils/load_img  
+https://www.tensorflow.org/api_docs/python/tf/keras/utils/img_to_array  
+https://www.tensorflow.org/api_docs/python/tf/keras/applications/resnet50/preprocess_input  
 [Source of coffee.qss](https://code.qt.io/cgit/qt/qtbase.git/tree/examples/widgets/widgets/stylesheet/qss/coffee.qss?h=6.3)  
 [Qt for Python Official Website](https://doc.qt.io/qtforpython/index.html)
 
 ## Environment
-<!-- Linux Distribution: Ubuntu-20.04  
-Kernel version: 5.10.102.1-microsoft-standard-WSL2 -->
-Windows 10 21H2 build 19044.1706
+1. Linux Distribution: Ubuntu-20.04  
+Kernel version: 5.10.102.1-microsoft-standard-WSL2
+
+2. Windows 10 21H2 build 19044.1706
 
 ## Python files
 
