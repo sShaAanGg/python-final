@@ -61,6 +61,9 @@ class MainWindow(QMainWindow):
 
         self.img_path = ""
         self.adv_images_exist = 0
+        self.untarget_mode = 0
+        self.random_mode = 0
+        self.least_mode = 0
     @Slot()
     def _open(self):
         self.adv_images_exist = 0
@@ -78,39 +81,59 @@ class MainWindow(QMainWindow):
         dialog.setDirectory('./')
         while (dialog.exec() == QDialog.Accepted
                and not self._save_file(dialog.selectedFiles()[0])):
-            pass
+            pass 
 
     @Slot()
     def _attack_untarget(self):
         if (self.mode == 1):
-
+            img = cv2.imread(self.img_path)
+            prepare_attack(img) 
+            top_1, top_2, top_3 = attack(img)
+            self.adv_images_exist = 1
+            self.load_file("D:/python_final/python-final/result.png")
+            self.ui.label_result.setText("top 1: " + str(top_1) + '\n' + "top 2: " + str(top_2) + '\n' + "top 3: " + str(top_3))
+            self.ui.button_again.show()
+            self.ui.button_attack_untargeted.hide()
+            self.ui.button_attack_random.hide()
+            self.ui.button_attack_least.hide()
+            self.ui.label_help.setText('You can click "Try Again" (F5) to try again')
             return
     @Slot()
     def _attack_random(self):
         if (self.mode == 1):
-
-            return
-    @Slot()
-    def _attack_least(self):
-        if (self.mode == 1):
-
-            return
-    @Slot()
-    def _attack(self):
-
-        if (self.ui.label_image.property("isActivated")):
-            self.mode = 1
-            # self.ui.button_classify.hide()
-            print(self.img_path)
             img = cv2.imread(self.img_path)
-            self.ui.label_result.repaint()
-            print("test")
-            self.ui.label_result.setText("1324")
             prepare_attack(img) 
             top_1, top_2, top_3 = attack(img, "random")
             self.adv_images_exist = 1
             self.load_file("D:/python_final/python-final/result.png")
             self.ui.label_result.setText("top 1: " + str(top_1) + '\n' + "top 2: " + str(top_2) + '\n' + "top 3: " + str(top_3))
+            self.ui.button_again.show()
+            self.ui.button_attack_untargeted.hide()
+            self.ui.button_attack_random.hide()
+            self.ui.button_attack_least.hide()
+            self.ui.label_help.setText('You can click "Try Again" (F5) to try again')
+            return
+    @Slot()
+    def _attack_least(self):
+        if (self.mode == 1):
+            img = cv2.imread(self.img_path)
+            prepare_attack(img) 
+            top_1, top_2, top_3 = attack(img, "least_likely")
+            self.adv_images_exist = 1
+            self.load_file("D:/python_final/python-final/result.png")
+            self.ui.label_result.setText("top 1: " + str(top_1) + '\n' + "top 2: " + str(top_2) + '\n' + "top 3: " + str(top_3))
+            self.ui.button_again.show()
+            self.ui.button_attack_untargeted.hide()
+            self.ui.button_attack_random.hide()
+            self.ui.button_attack_least.hide()
+            self.ui.label_help.setText('You can click "Try Again" (F5) to try again')
+            return
+
+    @Slot()
+    def _attack(self):
+
+        if (self.ui.label_image.property("isActivated")):
+            self.mode = 1
             self.ui.button_again.show()
             self.ui.button_attack_untargeted.show()
             self.ui.button_attack_random.show()
@@ -178,7 +201,7 @@ class MainWindow(QMainWindow):
         reader = QImageReader(fileName)
         # reader.setFormat('PNG')
         reader.setAutoTransform(True)
-        new_image = reader.read()
+        new_image = reader.read().scaled(224, 224, Qt.IgnoreAspectRatio, Qt.SmoothTransformation)
         native_filename = QDir.toNativeSeparators(fileName)
         if new_image.isNull():
             error = reader.errorString()
@@ -338,7 +361,7 @@ class Ui_MainWindow(object):
         self.label_result.setObjectName(u"label_result")
         self.label_result.setGeometry(QRect(0, 0, 560, 100))
         self.label_result.setFont(font)
-        self.label_result.setTextFormat(Qt.MarkdownText)
+        # self.label_result.setTextFormat(Qt.MarkdownText)
         self.label_result.setAlignment(Qt.AlignCenter)
         self.label_result.setProperty("isVisible", False)
         self.button_attack_untargeted = QPushButton(self.centralwidget)
