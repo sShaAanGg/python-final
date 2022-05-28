@@ -86,42 +86,65 @@ class MainWindow(QMainWindow):
     @Slot()
     def _attack_untarget(self):
         if (self.mode == 1):
+            self.ui.label_help.setText("Untarget Mode")
+            self.ui.label_result.setText("Attacking...\nPlease wait...")
+            self.ui.label_help.repaint()
+            self.ui.label_result.repaint()
             img = cv2.imread(self.img_path)
+            tmp_path = self.img_path
             prepare_attack(img) 
             top_1, top_2, top_3 = attack(img)
             self.adv_images_exist = 1
             self.load_file("D:/python_final/python-final/result.png")
+            self.img_path = tmp_path
             self.ui.label_result.setText("top 1: " + str(top_1) + '\n' + "top 2: " + str(top_2) + '\n' + "top 3: " + str(top_3))
+            self.ui.label_result.repaint()
             self.ui.button_again.show()
             self.ui.button_attack_untargeted.hide()
             self.ui.button_attack_random.hide()
             self.ui.button_attack_least.hide()
             self.ui.label_help.setText('You can click "Try Again" (F5) to try again')
+            self.ui.label_help.repaint()
             return
     @Slot()
     def _attack_random(self):
         if (self.mode == 1):
+            self.ui.label_help.setText("Random Target Mode")
+            self.ui.label_result.setText("Attacking...\nPlease wait...")
+            self.ui.label_help.repaint()
+            self.ui.label_result.repaint()            
             img = cv2.imread(self.img_path)
+            tmp_path = self.img_path
             prepare_attack(img) 
             top_1, top_2, top_3 = attack(img, "random")
             self.adv_images_exist = 1
             self.load_file("D:/python_final/python-final/result.png")
+            self.img_path = tmp_path
             self.ui.label_result.setText("top 1: " + str(top_1) + '\n' + "top 2: " + str(top_2) + '\n' + "top 3: " + str(top_3))
+            self.ui.label_result.repaint()
             self.ui.button_again.show()
             self.ui.button_attack_untargeted.hide()
             self.ui.button_attack_random.hide()
             self.ui.button_attack_least.hide()
             self.ui.label_help.setText('You can click "Try Again" (F5) to try again')
             return
+            
     @Slot()
     def _attack_least(self):
         if (self.mode == 1):
+            self.ui.label_help.setText("Least Likely Target Mode")
+            self.ui.label_result.setText("Attacking...\nPlease wait...")
+            self.ui.label_help.repaint()
+            self.ui.label_result.repaint()
             img = cv2.imread(self.img_path)
+            tmp_path = self.img_path
             prepare_attack(img) 
             top_1, top_2, top_3 = attack(img, "least_likely")
             self.adv_images_exist = 1
             self.load_file("D:/python_final/python-final/result.png")
+            self.img_path = tmp_path
             self.ui.label_result.setText("top 1: " + str(top_1) + '\n' + "top 2: " + str(top_2) + '\n' + "top 3: " + str(top_3))
+            self.ui.label_result.repaint()
             self.ui.button_again.show()
             self.ui.button_attack_untargeted.hide()
             self.ui.button_attack_random.hide()
@@ -138,7 +161,9 @@ class MainWindow(QMainWindow):
             self.ui.button_attack_untargeted.show()
             self.ui.button_attack_random.show()
             self.ui.button_attack_least.show()
-            self.ui.label_help.setText('You can click "Try Again" (F5) to try again')
+            self.ui.label_result.setText("")
+            self.ui.label_help.setText('Choose attack mode')
+            self.ui.label_result.repaint()
     
     @Slot()
     def _classify(self):
