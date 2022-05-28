@@ -52,6 +52,13 @@ class MainWindow(QMainWindow):
         self.ui.button_add_noise.clicked.connect(self._add_noise)
         self.ui.button_again.clicked.connect(self._recover)
 
+        self.ui.button_attack_untargeted.clicked.connect(self._attack_untarget)
+        self.ui.button_attack_random.clicked.connect(self._attack_random)
+        self.ui.button_attack_least.clicked.connect(self._attack_least)
+        self.ui.button_attack_untargeted.hide()
+        self.ui.button_attack_random.hide()
+        self.ui.button_attack_least.hide()
+
         self.img_path = ""
         self.adv_images_exist = 0
     @Slot()
@@ -72,7 +79,22 @@ class MainWindow(QMainWindow):
         while (dialog.exec() == QDialog.Accepted
                and not self._save_file(dialog.selectedFiles()[0])):
             pass
-    
+
+    @Slot()
+    def _attack_untarget(self):
+        if (self.mode == 1):
+
+            return
+    @Slot()
+    def _attack_random(self):
+        if (self.mode == 1):
+
+            return
+    @Slot()
+    def _attack_least(self):
+        if (self.mode == 1):
+
+            return
     @Slot()
     def _attack(self):
 
@@ -90,6 +112,9 @@ class MainWindow(QMainWindow):
             self.load_file("D:/python_final/python-final/result.png")
             self.ui.label_result.setText("top 1: " + str(top_1) + '\n' + "top 2: " + str(top_2) + '\n' + "top 3: " + str(top_3))
             self.ui.button_again.show()
+            self.ui.button_attack_untargeted.show()
+            self.ui.button_attack_random.show()
+            self.ui.button_attack_least.show()
             self.ui.label_help.setText('You can click "Try Again" (F5) to try again')
     
     @Slot()
@@ -126,10 +151,9 @@ class MainWindow(QMainWindow):
         if (self.mode != 0):
             self.mode = 0
             self.ui.label_result.setText("")
-            self.ui.button_attack.hide()
-            self.ui.button_classify.hide()
-            self.ui.button_add_noise.hide()
-            self.ui.button_again.hide()
+            self.ui.button_attack_untargeted.hide()
+            self.ui.button_attack_random.hide()
+            self.ui.button_attack_least.hide()
             self._set_image(QImage())
             self.ui.label_help.setText("Choose an image (Ctrl-O)")
             self.ui.label_image.setProperty("isActivated", False)
