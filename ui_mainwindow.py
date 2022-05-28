@@ -82,7 +82,7 @@ class MainWindow(QMainWindow):
             print("test")
             self.ui.label_result.setText("")
             prepare_attack(img) 
-            top_1, top_2, top_3, adv_images = attack(img)
+            top_1, top_2, top_3 = attack(img, "random")
             self.adv_images_exist = 1
             self.load_file("D:/python_final/python-final/result.png")
             self.ui.label_result.setText("top 1: " + str(top_1) + '\n' + "top 2: " + str(top_2) + '\n' + "top 3: " + str(top_3))
