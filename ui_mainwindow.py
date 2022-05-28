@@ -50,9 +50,10 @@ class MainWindow(QMainWindow):
         self.ui.button_again.clicked.connect(self._recover)
 
         self.img_path = ""
-    
+        self.adv_images_exist = 0
     @Slot()
     def _open(self):
+        self.adv_images_exist = 0
         dialog = QFileDialog(self, "Open File")
         self._initialize_image_filedialog(dialog, QFileDialog.AcceptOpen)
         dialog.setDirectory('./')
@@ -81,7 +82,9 @@ class MainWindow(QMainWindow):
             print("test")
             self.ui.label_result.setText("")
             prepare_attack(img) 
-            top_1, top_2, top_3 = attack(img)
+            top_1, top_2, top_3, adv_images = attack(img)
+            self.adv_images_exist = 1
+            self.load_file("D:/python_final/python-final/result.png")
             self.ui.label_result.setText("top 1: " + str(top_1) + '\n' + "top 2: " + str(top_2) + '\n' + "top 3: " + str(top_3))
             self.ui.button_again.show()
             self.ui.label_help.setText('You can click "Try Again" (F5) to try again')
@@ -91,11 +94,12 @@ class MainWindow(QMainWindow):
         if (self.ui.label_image.property("isActivated")):
             self.mode = 2
             # self.ui.button_attack.hide()
-            print(self.img_path)
+            # print(self.img_path)
             img = cv2.imread(self.img_path)
             img = cv2.resize(img, (224, 224))
-            top_1, top_2, top_3 = predict(img)
-            self.ui.label_result.setText("top 1: " + str(top_1) + '\n' + "top 2: " + str(top_2) + '\n' + "top 3: " + str(top_3))
+            if self.adv_images_exist == 0:
+                top_1, top_2, top_3 = predict(img)
+                self.ui.label_result.setText("top 1: " + str(top_1) + '\n' + "top 2: " + str(top_2) + '\n' + "top 3: " + str(top_3))
             self.ui.button_again.show()
             self.ui.label_help.setText('You can click "Try Again" (F5) to try again')
 

@@ -59,6 +59,8 @@ model = nn.Sequential(
 
 model = model.eval()
 
+adv_image = 0
+
 def attack(img, mode=None):
     imagnet_data = image_folder_custom_label(root='test_img\imagenet', transform=transform, idx2label=idx2label)
     data_loader = torch.utils.data.DataLoader(imagnet_data, batch_size=1, shuffle=False)
@@ -76,7 +78,7 @@ def attack(img, mode=None):
 
     # attack start
     adv_images = attacker(images, labels)
-
+    adv_image = adv_images
     outputs = model(adv_images)
     m = nn.Softmax(dim=1)
     logits = m(outputs.data)
@@ -101,7 +103,7 @@ def attack(img, mode=None):
     npimg = cv2.cvtColor(npimg, cv2.COLOR_BGR2RGB)
     cv2.imwrite("result/result.png", npimg)
     
-    return top_1, top_2, top_3
+    return top_1, top_2, top_3, adv_images
 
 if __name__ == '__main__':
     pass
