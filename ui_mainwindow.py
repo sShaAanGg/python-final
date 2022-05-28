@@ -40,8 +40,14 @@ class MainWindow(QMainWindow):
         self.ui.actionNormal_size.triggered.connect(self._normal_size)
         self.ui.actionNormal_size.setEnabled(False)
 
+        self.ui.button_attack.hide()
+        self.ui.button_classify.hide()
+        self.ui.button_add_noise.hide()
+        self.ui.button_again.hide()
+
         self.ui.button_attack.clicked.connect(self._attack)
         self.ui.button_classify.clicked.connect(self._classify)
+        self.ui.button_add_noise.clicked.connect(self._add_noise)
         self.ui.button_again.clicked.connect(self._recover)
     
     @Slot()
@@ -66,20 +72,40 @@ class MainWindow(QMainWindow):
     def _attack(self):
         if (self.ui.label_image.property("isActivated")):
             self.mode = 1
-            self.ui.button_classify.hide()
+            # self.ui.button_classify.hide()
+
+            self.ui.button_again.show()
+            self.ui.label_help.setText('You can click "Try Again" (F5) to try again')
     
     @Slot()
     def _classify(self):
         if (self.ui.label_image.property("isActivated")):
             self.mode = 2
-            self.ui.button_attack.hide()
+            # self.ui.button_attack.hide()
+
+            self.ui.button_again.show()
+            self.ui.label_help.setText('You can click "Try Again" (F5) to try again')
+
+    @Slot()
+    def _add_noise(self):
+        if (self.ui.label_image.property("isActivated")):
+            self.mode = 3
+
+            self.ui.button_again.show()
+            self.ui.label_help.setText('You can click "Try Again" (F5) to try again')
 
     @Slot()
     def _recover(self):
-        self.mode = 0
-        self._set_image(QImage())
-        self.ui.label_image.setProperty("isActivated", False)
-        self.ui.scrollArea.setVisible(False)
+        if (self.mode != 0):
+            self.mode = 0
+            self.ui.button_attack.hide()
+            self.ui.button_classify.hide()
+            self.ui.button_add_noise.hide()
+            self.ui.button_again.hide()
+            self._set_image(QImage())
+            self.ui.label_help.setText("Choose an image (Ctrl-O)")
+            self.ui.label_image.setProperty("isActivated", False)
+            self.ui.scrollArea.setVisible(False)
 
     @Slot()
     def _normal_size(self):
@@ -118,6 +144,12 @@ class MainWindow(QMainWindow):
         return True
     
     def _set_image(self, new_image):
+        self.ui.button_attack.show()
+        self.ui.button_classify.show()
+        self.ui.button_add_noise.show()
+        self.ui.button_again.show()
+        self.ui.label_help.setText('Click "Classify", "Attack", or "Add Noise"')
+
         self._image = new_image
         if self._image.colorSpace().isValid():
             self._image.convertToColorSpace(QColorSpace.SRgb)
@@ -169,18 +201,18 @@ class MainWindow(QMainWindow):
         if acceptMode == QFileDialog.AcceptSave:
             dialog.setDefaultSuffix("png")
 
-
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(960, 640)
+        MainWindow.resize(600, 600)
         sizePolicy = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(MainWindow.sizePolicy().hasHeightForWidth())
         MainWindow.setSizePolicy(sizePolicy)
-        MainWindow.setMaximumSize(QSize(960, 640))
+        MainWindow.setMinimumSize(QSize(600, 600))
+        MainWindow.setMaximumSize(QSize(600, 600))
         MainWindow.setMouseTracking(False)
         MainWindow.setLocale(QLocale(QLocale.English, QLocale.UnitedStates))
         MainWindow.setUnifiedTitleAndToolBarOnMac(False)
@@ -198,7 +230,7 @@ class Ui_MainWindow(object):
         self.centralwidget.setAutoFillBackground(False)
         self.label_help = QLabel(self.centralwidget)
         self.label_help.setObjectName(u"label_help")
-        self.label_help.setGeometry(QRect(-10, 10, 461, 51))
+        self.label_help.setGeometry(QRect(90, 0, 400, 50))
         font = QFont()
         font.setPointSize(12)
         self.label_help.setFont(font)
@@ -206,7 +238,7 @@ class Ui_MainWindow(object):
         self.label_help.setMargin(-5)
         self.button_classify = QPushButton(self.centralwidget)
         self.button_classify.setObjectName(u"button_classify")
-        self.button_classify.setGeometry(QRect(20, 60, 80, 40))
+        self.button_classify.setGeometry(QRect(20, 60, 120, 40))
         self.button_classify.setBaseSize(QSize(0, 0))
         font1 = QFont()
         font1.setPointSize(10)
@@ -216,38 +248,38 @@ class Ui_MainWindow(object):
         self.button_classify.setProperty("isActivated", False)
         self.button_attack = QPushButton(self.centralwidget)
         self.button_attack.setObjectName(u"button_attack")
-        self.button_attack.setGeometry(QRect(160, 60, 80, 40))
+        self.button_attack.setGeometry(QRect(170, 60, 120, 40))
         self.button_attack.setFont(font1)
         self.button_attack.setProperty("isActivated", False)
         self.button_again = QPushButton(self.centralwidget)
         self.button_again.setObjectName(u"button_again")
-        self.button_again.setGeometry(QRect(450, 30, 81, 61))
+        self.button_again.setGeometry(QRect(470, 60, 120, 40))
         self.button_again.setFont(font1)
         self.scrollArea = QScrollArea(self.centralwidget)
         self.scrollArea.setObjectName(u"scrollArea")
-        self.scrollArea.setGeometry(QRect(20, 120, 911, 411))
+        self.scrollArea.setGeometry(QRect(120, 120, 360, 360))
         self.scrollArea.setSizeAdjustPolicy(QAbstractScrollArea.AdjustToContents)
         self.scrollArea.setWidgetResizable(True)
         self.label_image = QLabel()
         self.label_image.setObjectName(u"label_image")
         self.label_image.setEnabled(True)
-        self.label_image.setGeometry(QRect(0, 0, 909, 409))
+        self.label_image.setGeometry(QRect(0, 0, 358, 358))
         self.label_image.setScaledContents(True)
         self.label_image.setProperty("isVisible", False)
         self.scrollArea.setWidget(self.label_image)
         self.button_add_noise = QPushButton(self.centralwidget)
         self.button_add_noise.setObjectName(u"button_add_noise")
-        self.button_add_noise.setGeometry(QRect(300, 60, 80, 40))
+        self.button_add_noise.setGeometry(QRect(320, 60, 125, 40))
         self.button_add_noise.setFont(font1)
         self.button_add_noise.setProperty("isActivated", False)
         self.frame = QFrame(self.centralwidget)
         self.frame.setObjectName(u"frame")
-        self.frame.setGeometry(QRect(20, 540, 911, 51))
+        self.frame.setGeometry(QRect(100, 490, 400, 60))
         self.frame.setFrameShape(QFrame.StyledPanel)
         self.frame.setFrameShadow(QFrame.Raised)
         self.label_result = QLabel(self.frame)
         self.label_result.setObjectName(u"label_result")
-        self.label_result.setGeometry(QRect(0, 0, 911, 51))
+        self.label_result.setGeometry(QRect(0, 0, 400, 60))
         self.label_result.setFont(font)
         self.label_result.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
         self.label_result.setProperty("isVisible", False)
@@ -266,7 +298,7 @@ class Ui_MainWindow(object):
         MainWindow.setStatusBar(self.statusbar)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 960, 22))
+        self.menubar.setGeometry(QRect(0, 0, 600, 22))
         self.menuFile = QMenu(self.menubar)
         self.menuFile.setObjectName(u"menuFile")
         self.menuView = QMenu(self.menubar)
@@ -283,6 +315,7 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
         self.button_again.clicked.connect(self.button_attack.show)
         self.button_again.clicked.connect(self.button_classify.show)
+        self.button_again.clicked.connect(self.button_add_noise.show)
 
         QMetaObject.connectSlotsByName(MainWindow)
     # setupUi
@@ -302,12 +335,24 @@ class Ui_MainWindow(object):
         self.actionFit_to_window.setShortcut(QCoreApplication.translate("MainWindow", u"Ctrl+F", None))
 #endif // QT_CONFIG(shortcut)
         self.actionNormal_size.setText(QCoreApplication.translate("MainWindow", u"Normal size", None))
-        self.label_help.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><span style=\" font-weight:700;\">Choose an image and then click 'Classify' or 'Attack'</span></p></body></html>", None))
-        self.button_classify.setText(QCoreApplication.translate("MainWindow", u"Classify", None))
-        self.button_attack.setText(QCoreApplication.translate("MainWindow", u"Attack", None))
-        self.button_again.setText(QCoreApplication.translate("MainWindow", u"Try Again", None))
+        self.label_help.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><span style=\" font-weight:700;\">Choose an image (Ctrl-O)</span></p></body></html>", None))
+        self.button_classify.setText(QCoreApplication.translate("MainWindow", u"Classify(Ctrl-C)", None))
+#if QT_CONFIG(shortcut)
+        self.button_classify.setShortcut(QCoreApplication.translate("MainWindow", u"Ctrl+C", None))
+#endif // QT_CONFIG(shortcut)
+        self.button_attack.setText(QCoreApplication.translate("MainWindow", u"Attack(Ctrl-A)", None))
+#if QT_CONFIG(shortcut)
+        self.button_attack.setShortcut(QCoreApplication.translate("MainWindow", u"Ctrl+A", None))
+#endif // QT_CONFIG(shortcut)
+        self.button_again.setText(QCoreApplication.translate("MainWindow", u"Try Again(F5)", None))
+#if QT_CONFIG(shortcut)
+        self.button_again.setShortcut(QCoreApplication.translate("MainWindow", u"F5", None))
+#endif // QT_CONFIG(shortcut)
         self.label_image.setText("")
-        self.button_add_noise.setText(QCoreApplication.translate("MainWindow", u"Add Noise", None))
+        self.button_add_noise.setText(QCoreApplication.translate("MainWindow", u"Add Noise(Ctrl-N)", None))
+#if QT_CONFIG(shortcut)
+        self.button_add_noise.setShortcut(QCoreApplication.translate("MainWindow", u"Ctrl+N", None))
+#endif // QT_CONFIG(shortcut)
         self.label_result.setText("")
         self.menuFile.setTitle(QCoreApplication.translate("MainWindow", u"File", None))
         self.menuView.setTitle(QCoreApplication.translate("MainWindow", u"View", None))
