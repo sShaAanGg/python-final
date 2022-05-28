@@ -20,6 +20,10 @@ from PySide6.QtWidgets import (QApplication, QScrollArea, QLabel, QMainWindow,
     QMenu, QMenuBar, QPushButton, QSizePolicy,
     QStatusBar, QWidget, QFileDialog, QDialog, QMessageBox, QAbstractScrollArea, QFrame)
 
+import cv2
+from predictor import predict
+from attacker import attack
+from prepare_attack import prepare_attack
 class MainWindow(QMainWindow):
     def __init__(self):
         QMainWindow.__init__(self)
@@ -49,6 +53,8 @@ class MainWindow(QMainWindow):
         self.ui.button_classify.clicked.connect(self._classify)
         self.ui.button_add_noise.clicked.connect(self._add_noise)
         self.ui.button_again.clicked.connect(self._recover)
+
+        self.img_path = ""
     
     @Slot()
     def _open(self):
@@ -70,10 +76,18 @@ class MainWindow(QMainWindow):
     
     @Slot()
     def _attack(self):
+
         if (self.ui.label_image.property("isActivated")):
             self.mode = 1
             # self.ui.button_classify.hide()
-
+            print(self.img_path)
+            img = cv2.imread(self.img_path)
+            self.ui.label_result.repaint()
+            print("test")
+            self.ui.label_result.setText("")
+            prepare_attack(img) 
+            top_1, top_2, top_3 = attack(img)
+            self.ui.label_result.setText("top 1: " + str(top_1) + '\n' + "top 2: " + str(top_2) + '\n' + "top 3: " + str(top_3))
             self.ui.button_again.show()
             self.ui.label_help.setText('You can click "Try Again" (F5) to try again')
     
@@ -82,7 +96,12 @@ class MainWindow(QMainWindow):
         if (self.ui.label_image.property("isActivated")):
             self.mode = 2
             # self.ui.button_attack.hide()
-
+            print(self.img_path)
+            img = cv2.imread(self.img_path)
+            img = cv2.resize(img, (224, 224))
+            top_1, top_2, top_3 = predict(img)
+            self.ui.label_result.setText("top 1: " + str(top_1) + '\n' + "top 2: " + str(top_2) + '\n' + "top 3: " + str(top_3))
+            self.ui.label_result.repaint() 
             self.ui.button_again.show()
             self.ui.label_help.setText('You can click "Try Again" (F5) to try again')
 
@@ -98,6 +117,7 @@ class MainWindow(QMainWindow):
     def _recover(self):
         if (self.mode != 0):
             self.mode = 0
+            self.ui.label_result.setText("")
             self.ui.button_attack.hide()
             self.ui.button_classify.hide()
             self.ui.button_add_noise.hide()
@@ -141,6 +161,7 @@ class MainWindow(QMainWindow):
         description = color_space.description() if color_space.isValid() else 'unknown'
         message = f'Opened "{native_filename}", {w}x{h}, Depth: {d} ({description})'
         self.statusBar().showMessage(message)
+        self.img_path = fileName
         return True
     
     def _set_image(self, new_image):
