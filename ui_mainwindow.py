@@ -101,7 +101,6 @@ class MainWindow(QMainWindow):
             img = cv2.resize(img, (224, 224))
             top_1, top_2, top_3 = predict(img)
             self.ui.label_result.setText("top 1: " + str(top_1) + '\n' + "top 2: " + str(top_2) + '\n' + "top 3: " + str(top_3))
-            self.ui.label_result.repaint() 
             self.ui.button_again.show()
             self.ui.label_help.setText('You can click "Try Again" (F5) to try again')
 
