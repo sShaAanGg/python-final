@@ -68,7 +68,7 @@ def attack(img, mode=None):
     # attacker = torchattacks.BIM(model, eps=8/255, alpha=4/255, steps=150)
     # attacker = torchattacks.CW(model, c=0.1, steps=1000, lr=0.01)
     # attacker = torchattacks.CW(model, c=1, lr=0.01, steps=100, kappa=0),
-    attacker = torchattacks.MIFGSM(model, eps=4/255, alpha=2/255, steps=100)
+    attacker = torchattacks.MIFGSM(model, eps=2/255, alpha=2/255, steps=100)
 
     # set attack mode if requested
     if mode == "random":
@@ -100,6 +100,7 @@ def attack(img, mode=None):
     npimg = npimg * 255
     npimg = np.transpose(npimg,(1,2,0))
     npimg = cv2.cvtColor(npimg, cv2.COLOR_BGR2RGB)
+    # npimg = cv2.resize(npimg,(300,300))
     cv2.imwrite("D:/python_final/python-final/result.png", npimg)
     
     return top_1, top_2, top_3

@@ -199,6 +199,7 @@ class MainWindow(QMainWindow):
     def _recover(self):
         if (self.mode != 0):
             self.mode = 0
+            self.adv_images_exist = 0
             self.load_file(self.img_path)
             self.ui.label_result.setText("")
             self.ui.button_attack_untargeted.hide()
@@ -226,7 +227,11 @@ class MainWindow(QMainWindow):
         reader = QImageReader(fileName)
         # reader.setFormat('PNG')
         reader.setAutoTransform(True)
-        new_image = reader.read().scaled(224, 224, Qt.IgnoreAspectRatio, Qt.SmoothTransformation)
+        # new_image = reader.read()
+        img = cv2.imread(fileName)
+        img = cv2.resize(img, (224, 224))
+        cv2.imwrite(fileName, img)
+        new_image = reader.read().scaled(430, 430, Qt.IgnoreAspectRatio, Qt.SmoothTransformation)
         native_filename = QDir.toNativeSeparators(fileName)
         if new_image.isNull():
             error = reader.errorString()
@@ -362,7 +367,7 @@ class Ui_MainWindow(object):
         self.button_again.setFont(font1)
         self.scrollArea = QScrollArea(self.centralwidget)
         self.scrollArea.setObjectName(u"scrollArea")
-        self.scrollArea.setGeometry(QRect(250, 160, 360, 360))
+        self.scrollArea.setGeometry(QRect(190, 160, 440, 440))
         self.scrollArea.setSizeAdjustPolicy(QAbstractScrollArea.AdjustToContents)
         self.scrollArea.setWidgetResizable(True)
         self.label_image = QLabel()
@@ -379,7 +384,7 @@ class Ui_MainWindow(object):
         self.button_add_noise.setProperty("isActivated", False)
         self.frame = QFrame(self.centralwidget)
         self.frame.setObjectName(u"frame")
-        self.frame.setGeometry(QRect(120, 600, 560, 100))
+        self.frame.setGeometry(QRect(120, 640, 560, 100))
         self.frame.setFrameShape(QFrame.StyledPanel)
         self.frame.setFrameShadow(QFrame.Raised)
         self.label_result = QLabel(self.frame)
