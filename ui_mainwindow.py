@@ -103,7 +103,7 @@ class MainWindow(QMainWindow):
             self.ui.button_attack_untargeted.hide()
             self.ui.button_attack_random.hide()
             self.ui.button_attack_least.hide()
-            self.ui.label_help.setText('You can click "Try Again" (F5) to try again')
+            self.ui.label_help.setText('Click "Recover" to Show Original Image')
             self.ui.label_help.repaint()
             return
     @Slot()
@@ -126,9 +126,9 @@ class MainWindow(QMainWindow):
             self.ui.button_attack_untargeted.hide()
             self.ui.button_attack_random.hide()
             self.ui.button_attack_least.hide()
-            self.ui.label_help.setText('You can click "Try Again" (F5) to try again')
+            self.ui.label_help.setText('Click "Recover" to Show Original Image')
             return
-            
+
     @Slot()
     def _attack_least(self):
         if (self.mode == 1):
@@ -149,7 +149,7 @@ class MainWindow(QMainWindow):
             self.ui.button_attack_untargeted.hide()
             self.ui.button_attack_random.hide()
             self.ui.button_attack_least.hide()
-            self.ui.label_help.setText('You can click "Try Again" (F5) to try again')
+            self.ui.label_help.setText('Click "Recover" to Show Original Image')
             return
 
     @Slot()
@@ -178,7 +178,7 @@ class MainWindow(QMainWindow):
                 top_1, top_2, top_3 = predict(img)
                 self.ui.label_result.setText("top 1: " + str(top_1) + '\n' + "top 2: " + str(top_2) + '\n' + "top 3: " + str(top_3))
             self.ui.button_again.show()
-            self.ui.label_help.setText('You can click "Try Again" (F5) to try again')
+            self.ui.label_help.setText('Click "Recover" to Show Original Image')
 
     @Slot()
     def _add_noise(self):
@@ -193,20 +193,20 @@ class MainWindow(QMainWindow):
             self.img_path = path
             self.ui.label_result.setText("top 1: " + str(top_1) + '\n' + "top 2: " + str(top_2) + '\n' + "top 3: " + str(top_3))
             self.ui.button_again.show()
-            self.ui.label_help.setText('You can click "Try Again" (F5) to try again')
+            self.ui.label_help.setText('Click "Recover" to Show Original Image')
 
     @Slot()
     def _recover(self):
         if (self.mode != 0):
             self.mode = 0
+            self.load_file(self.img_path)
             self.ui.label_result.setText("")
             self.ui.button_attack_untargeted.hide()
             self.ui.button_attack_random.hide()
             self.ui.button_attack_least.hide()
-            self._set_image(QImage())
-            self.ui.label_help.setText("Choose an image (Ctrl-O)")
-            self.ui.label_image.setProperty("isActivated", False)
-            self.ui.scrollArea.setVisible(False)
+            self.ui.label_help.setText('Click "Classify", "Attack", or "Add Noise"')
+            # self.ui.label_image.setProperty("isActivated", False)
+            # self.ui.scrollArea.setVisible(False)
 
     @Slot()
     def _normal_size(self):
@@ -468,7 +468,7 @@ class Ui_MainWindow(object):
 #if QT_CONFIG(shortcut)
         self.button_attack.setShortcut(QCoreApplication.translate("MainWindow", u"Ctrl+A", None))
 #endif // QT_CONFIG(shortcut)
-        self.button_again.setText(QCoreApplication.translate("MainWindow", u"Try Again(F5)", None))
+        self.button_again.setText(QCoreApplication.translate("MainWindow", u"Recover(F5)", None))
 #if QT_CONFIG(shortcut)
         self.button_again.setShortcut(QCoreApplication.translate("MainWindow", u"F5", None))
 #endif // QT_CONFIG(shortcut)

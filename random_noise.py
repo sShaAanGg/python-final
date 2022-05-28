@@ -4,7 +4,7 @@ from predictor import predict
 
 def add_random_noise(img):
     mean = 0
-    var = 50
+    var = 30
     sigma = var ** 0.8
     gaussian = np.random.normal(mean, sigma, (img.shape[0],img.shape[1], img.shape[2])) 
     noisy_image = img + gaussian
