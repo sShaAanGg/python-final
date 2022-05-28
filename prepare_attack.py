@@ -15,7 +15,7 @@ def prepare_attack(img):
     top_1, _, _ = predict(img)
     # print(top_1)
     os.mkdir('test_img/imagenet/' + top_1[0])
-    cv2.imwrite("original.png", img)
+    cv2.imwrite("result/original.png", img)
     cv2.imwrite('test_img/imagenet/' + top_1[0] + '/1.png', img)
 
 if __name__ == '__main__':

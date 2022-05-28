@@ -77,12 +77,18 @@ def attack(img, mode=None):
     outputs = model(adv_images)
     m = nn.Softmax(dim=1)
     logits = m(outputs.data)
-    prob = torch.max(logits)
-    _, pre = torch.max(outputs.data, 1)
-    ans = [imagnet_data.classes[i] for i in pre]
+    prob = torch.topk(logits, 3)
+    _, pre = torch.topk(outputs.data, 3)
+    # _, pre = torch.max(outputs.data, 1)
+    prob_list = prob[0].tolist()[0]
+    top_1 = imagnet_data.classes[pre[0][0]], prob_list[0]
+    top_2 = imagnet_data.classes[pre[0][1]], prob_list[1]
+    top_3 = imagnet_data.classes[pre[0][1]], prob_list[2]
+
     print("attack finished!")
-    print(ans[0])
-    print(prob.cpu().data.item())
+    print(top_1)
+    print(top_2)
+    print(top_3)
 
     # save adversarial image
     data = torchvision.utils.make_grid(adv_images.cpu().data, normalize=True)
@@ -90,7 +96,7 @@ def attack(img, mode=None):
     npimg = npimg * 255
     npimg = np.transpose(npimg,(1,2,0))
     npimg = cv2.cvtColor(npimg, cv2.COLOR_BGR2RGB)
-    cv2.imwrite("result.png", npimg)
+    cv2.imwrite("result/result.png", npimg)
     
 
 
