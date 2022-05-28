@@ -13,13 +13,13 @@ def prepare_attack(img):
     remove_folder()
     img = cv2.resize(img, (224, 224))
     top_1, _, _ = predict(img)
-    print(top_1)
+    # print(top_1)
     os.mkdir('test_img/imagenet/' + top_1[0])
     cv2.imwrite("original.png", img)
     cv2.imwrite('test_img/imagenet/' + top_1[0] + '/1.png', img)
 
 if __name__ == '__main__':
-   img_path = 'test_img/518851275.jpg'
+   img_path = 'test_img/851ddacb-e655-4451-bc64-e2772a5298d9.jpg'
    img = cv2.imread(img_path)
    prepare_attack(img) 
    

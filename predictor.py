@@ -1,17 +1,20 @@
 import numpy as np
 from tensorflow.keras.preprocessing import image
 from tensorflow.keras.applications.resnet50 import ResNet50
+from tensorflow.keras.applications.vgg16  import VGG16 
+
 from tensorflow.keras.applications.resnet50 import preprocess_input, decode_predictions
 import cv2
-model = ResNet50(weights='imagenet')
-
+# model = ResNet50(weights='imagenet')
+model = VGG16(weights='imagenet')
 # it will return top 3 labels as a list -> (label, confidence)
 def predict(img):
-    x = image.img_to_array(img) # Converts a PIL Image instance to a Numpy array
+    x = img
+    # x = image.img_to_array(img) # Converts a PIL Image instance to a Numpy array
     x = np.expand_dims(x, axis=0)
 
     # The images are converted from RGB to BGR, then each color channel is zero-centered with respect to the ImageNet dataset
-    x = preprocess_input(x)
+    # x = preprocess_input(x)
 
     # predict label
     preds = model.predict(x)

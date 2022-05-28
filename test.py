@@ -8,3 +8,7 @@ resnet50 = models.resnet50(pretrained = True)
 img_path = 'result.png'
 img = cv2.imread(img_path)
 pred = resnet50(img)
+
+import torch
+x=torch.rand(4,4)
+print(x)
