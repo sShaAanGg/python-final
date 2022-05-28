@@ -24,6 +24,7 @@ import cv2
 from predictor import predict
 from attacker import attack
 from prepare_attack import prepare_attack
+from random_noise import add_random_noise
 class MainWindow(QMainWindow):
     def __init__(self):
         QMainWindow.__init__(self)
@@ -80,7 +81,7 @@ class MainWindow(QMainWindow):
             img = cv2.imread(self.img_path)
             self.ui.label_result.repaint()
             print("test")
-            self.ui.label_result.setText("")
+            self.ui.label_result.setText("1324")
             prepare_attack(img) 
             top_1, top_2, top_3 = attack(img, "random")
             self.adv_images_exist = 1
@@ -107,7 +108,14 @@ class MainWindow(QMainWindow):
     def _add_noise(self):
         if (self.ui.label_image.property("isActivated")):
             self.mode = 3
-
+            img = cv2.imread(self.img_path)
+            img = cv2.resize(img, (224, 224))
+            noisy_image = add_random_noise(img)
+            top_1, top_2, top_3 = predict(noisy_image)
+            path = self.img_path
+            self.load_file("D:/python_final/python-final/random_noise_image.png")
+            self.img_path = path
+            self.ui.label_result.setText("top 1: " + str(top_1) + '\n' + "top 2: " + str(top_2) + '\n' + "top 3: " + str(top_3))
             self.ui.button_again.show()
             self.ui.label_help.setText('You can click "Try Again" (F5) to try again')
 
