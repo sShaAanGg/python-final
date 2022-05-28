@@ -5,3 +5,4 @@ torchattacks
 opencv-python
 tensorflow-gpu
 tensorflow==2.6.0
+pyside6
