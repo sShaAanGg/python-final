@@ -19,7 +19,7 @@ def prepare_attack(img):
     cv2.imwrite('test_img/imagenet/' + top_1[0] + '/1.png', img)
 
 if __name__ == '__main__':
-   img_path = 'test_img/851ddacb-e655-4451-bc64-e2772a5298d9.jpg'
+   img_path = 'test_img/panda.jpg'
    img = cv2.imread(img_path)
    prepare_attack(img) 
    

@@ -31,7 +31,7 @@ imagnet_data = image_folder_custom_label(root='test_img\imagenet', transform=tra
 data_loader = torch.utils.data.DataLoader(imagnet_data, batch_size=1, shuffle=False)
 images, labels = iter(data_loader).next()
 # print("True Image & True Label")
-print(images)
+# print(images)
 # imshow(torchvision.utils.make_grid(images, normalize=True), [imagnet_data.classes[i] for i in labels])
 
 use_cuda = True
@@ -52,8 +52,8 @@ class Normalize(nn.Module):
 norm_layer = Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
 
 model = nn.Sequential(
-    # norm_layer,
-    # models.resnet16(pretrained=True)
+    norm_layer,
+    # models.resnet50(pretrained=True)
     models.vgg16(pretrained = True)
 ).to(device)
 
@@ -62,33 +62,37 @@ model = model.eval()
 def attack(img, mode=None):
     # attacker = torchattacks.BIM(model, eps=8/255, alpha=4/255, steps=150)
     # attacker = torchattacks.CW(model, c=0.1, steps=1000, lr=0.01)
-    tensor_img = img.to(device)
+    # attacker = torchattacks.CW(model, c=1, lr=0.01, steps=100, kappa=0),
     attacker = torchattacks.MIFGSM(model, eps=8/255, alpha=2/255, steps=100)
 
+    # set attack mode if requested
     if mode == "random":
         attacker.set_mode_targeted_random()
     elif mode == "least_likely":
         attacker.set_mode_targeted_least_likely(1)  # Targeted attack
-    # attacker = torchattacks.CW(model, c=1, lr=0.01, steps=100, kappa=0),
-    # label, _, _ = predict(img)
+
+    # attack start
     adv_images = attacker(img, labels)
-    outputs = model(tensor_img)
-    prob, pre = torch.max(outputs.data, 1)
+
+    outputs = model(adv_images)
+    m = nn.Softmax(dim=1)
+    logits = m(outputs.data)
+    prob = torch.max(logits)
+    _, pre = torch.max(outputs.data, 1)
     ans = [imagnet_data.classes[i] for i in pre]
+    print("attack finished!")
     print(ans[0])
     print(prob.cpu().data.item())
+
+    # save adversarial image
     data = torchvision.utils.make_grid(adv_images.cpu().data, normalize=True)
     npimg = data.numpy()
     npimg = npimg * 255
-
     npimg = np.transpose(npimg,(1,2,0))
-    
     npimg = cv2.cvtColor(npimg, cv2.COLOR_BGR2RGB)
     cv2.imwrite("result.png", npimg)
-    print("attack finished")
-    predict(npimg)
-    # attacker.save(data_loader, save_path="result.pt", verbose=True)
+    
 
 
 if __name__ == '__main__':
-    attack(images, "least_likely")
+    attack(images)
