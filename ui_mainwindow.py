@@ -464,7 +464,7 @@ class Ui_MainWindow(object):
         self.actionFit_to_window.setShortcut(QCoreApplication.translate("MainWindow", u"Ctrl+F", None))
 #endif // QT_CONFIG(shortcut)
         self.actionNormal_size.setText(QCoreApplication.translate("MainWindow", u"Normal size", None))
-        self.label_help.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><span style=\" font-weight:700;\">Choose an image (Ctrl-O)</span></p></body></html>", None))
+        self.label_help.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><span style=\" font-weight:700;\">Choose an image</span></p></body></html>", None))
         self.button_classify.setText(QCoreApplication.translate("MainWindow", u"Classify", None))
 #if QT_CONFIG(shortcut)
         self.button_classify.setShortcut(QCoreApplication.translate("MainWindow", u"Ctrl+C", None))
