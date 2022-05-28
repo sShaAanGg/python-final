@@ -158,10 +158,10 @@
    <widget class="QScrollArea" name="scrollArea">
     <property name="geometry">
      <rect>
-      <x>120</x>
+      <x>140</x>
       <y>120</y>
-      <width>360</width>
-      <height>360</height>
+      <width>300</width>
+      <height>300</height>
      </rect>
     </property>
     <property name="sizeAdjustPolicy">
@@ -178,8 +178,8 @@
       <rect>
        <x>0</x>
        <y>0</y>
-       <width>358</width>
-       <height>358</height>
+       <width>298</width>
+       <height>298</height>
       </rect>
      </property>
      <property name="text">
@@ -220,10 +220,10 @@
    <widget class="QFrame" name="frame">
     <property name="geometry">
      <rect>
-      <x>100</x>
-      <y>490</y>
-      <width>400</width>
-      <height>60</height>
+      <x>20</x>
+      <y>440</y>
+      <width>560</width>
+      <height>100</height>
      </rect>
     </property>
     <property name="frameShape">
@@ -250,7 +250,7 @@
       <string/>
      </property>
      <property name="alignment">
-      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+      <set>Qt::AlignCenter</set>
      </property>
      <property name="isVisible" stdset="0">
       <bool>false</bool>
