@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>600</width>
-    <height>600</height>
+    <width>800</width>
+    <height>800</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -24,8 +24,8 @@
   </property>
   <property name="maximumSize">
    <size>
-    <width>600</width>
-    <height>600</height>
+    <width>800</width>
+    <height>800</height>
    </size>
   </property>
   <property name="mouseTracking">
@@ -50,9 +50,9 @@
    <widget class="QLabel" name="label_help">
     <property name="geometry">
      <rect>
-      <x>90</x>
-      <y>0</y>
-      <width>400</width>
+      <x>120</x>
+      <y>20</y>
+      <width>560</width>
       <height>50</height>
      </rect>
     </property>
@@ -74,8 +74,8 @@
    <widget class="QPushButton" name="button_classify">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>60</y>
+      <x>70</x>
+      <y>80</y>
       <width>120</width>
       <height>40</height>
      </rect>
@@ -113,8 +113,8 @@
    <widget class="QPushButton" name="button_attack">
     <property name="geometry">
      <rect>
-      <x>170</x>
-      <y>60</y>
+      <x>260</x>
+      <y>80</y>
       <width>120</width>
       <height>40</height>
      </rect>
@@ -137,8 +137,8 @@
    <widget class="QPushButton" name="button_again">
     <property name="geometry">
      <rect>
-      <x>470</x>
-      <y>60</y>
+      <x>620</x>
+      <y>80</y>
       <width>120</width>
       <height>40</height>
      </rect>
@@ -149,7 +149,7 @@
      </font>
     </property>
     <property name="text">
-     <string>Try Again(F5)</string>
+     <string>Recover(F5)</string>
     </property>
     <property name="shortcut">
      <string>F5</string>
@@ -158,10 +158,10 @@
    <widget class="QScrollArea" name="scrollArea">
     <property name="geometry">
      <rect>
-      <x>140</x>
-      <y>120</y>
-      <width>300</width>
-      <height>300</height>
+      <x>250</x>
+      <y>160</y>
+      <width>360</width>
+      <height>360</height>
      </rect>
     </property>
     <property name="sizeAdjustPolicy">
@@ -178,8 +178,8 @@
       <rect>
        <x>0</x>
        <y>0</y>
-       <width>298</width>
-       <height>298</height>
+       <width>358</width>
+       <height>358</height>
       </rect>
      </property>
      <property name="text">
@@ -196,8 +196,8 @@
    <widget class="QPushButton" name="button_add_noise">
     <property name="geometry">
      <rect>
-      <x>320</x>
-      <y>60</y>
+      <x>440</x>
+      <y>80</y>
       <width>125</width>
       <height>40</height>
      </rect>
@@ -220,8 +220,8 @@
    <widget class="QFrame" name="frame">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>440</y>
+      <x>120</x>
+      <y>600</y>
       <width>560</width>
       <height>100</height>
      </rect>
@@ -263,8 +263,8 @@
    <widget class="QPushButton" name="button_attack_untargeted">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>150</y>
+      <x>50</x>
+      <y>170</y>
       <width>120</width>
       <height>40</height>
      </rect>
@@ -287,8 +287,8 @@
    <widget class="QPushButton" name="button_attack_least">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>310</y>
+      <x>50</x>
+      <y>350</y>
       <width>120</width>
       <height>40</height>
      </rect>
@@ -311,8 +311,8 @@
    <widget class="QPushButton" name="button_attack_random">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>230</y>
+      <x>50</x>
+      <y>260</y>
       <width>120</width>
       <height>40</height>
      </rect>
@@ -356,7 +356,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>600</width>
+     <width>800</width>
      <height>22</height>
     </rect>
    </property>
