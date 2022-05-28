@@ -85,9 +85,9 @@ def attack(img, mode=None):
     _, pre = torch.topk(outputs.data, 3)
     # _, pre = torch.max(outputs.data, 1)
     prob_list = prob[0].tolist()[0]
-    top_1 = imagnet_data.classes[pre[0][0]], float("{:.3f}".format(prob_list[0]))
-    top_2 = imagnet_data.classes[pre[0][1]], float("{:.3f}".format(prob_list[1]))
-    top_3 = imagnet_data.classes[pre[0][2]], float("{:.3f}".format(prob_list[2]))
+    top_1 = imagnet_data.classes[pre[0][0]], float("{:.5f}".format(prob_list[0]))
+    top_2 = imagnet_data.classes[pre[0][1]], float("{:.5f}".format(prob_list[1]))
+    top_3 = imagnet_data.classes[pre[0][2]], float("{:.5f}".format(prob_list[2]))
 
     print("attack finished!")
     print(top_1)
@@ -100,7 +100,7 @@ def attack(img, mode=None):
     npimg = npimg * 255
     npimg = np.transpose(npimg,(1,2,0))
     npimg = cv2.cvtColor(npimg, cv2.COLOR_BGR2RGB)
-    cv2.imwrite("result/result.png", npimg)
+    cv2.imwrite("D:/python_final/python-final/result.png", npimg)
     
     return top_1, top_2, top_3
 
