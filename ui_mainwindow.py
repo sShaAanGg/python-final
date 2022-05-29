@@ -19,8 +19,6 @@ from PySide6.QtGui import (QAction, QBrush, QColor, QConicalGradient,
 from PySide6.QtWidgets import (QApplication, QScrollArea, QLabel, QMainWindow,
     QMenu, QMenuBar, QPushButton, QSizePolicy,
     QStatusBar, QWidget, QFileDialog, QDialog, QMessageBox, QAbstractScrollArea, QFrame)
-# from PySide6 import QtGui
-# QtGui.QImageReader.supportedImageFormats()
 
 import cv2
 from predictor import predict
