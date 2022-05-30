@@ -30,7 +30,10 @@ On Win10 (in powershell or cmd)
 .\project\Scripts\activate.bat
 ```
 ## Installing project requirements
+**CUDA must be installed and enabled [(CUDA Toolkit 11.7 Downloads)](https://developer.nvidia.com/cuda-downloads), otherwise attack() will result in errors**
 ```
+# In my Win10 environment I need to run the first command before the second to enable CUDA correctly
+pip install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu113
 pip install -r requirements.txt
 ```
 
