@@ -7,7 +7,7 @@ The final project of the course Programming in Python at NCU: An adversarial att
 
 ![Diagram](./Diagram.drawio.png)
 ## Issues to be solved in the future?
-1. Attack will results in errors if ```use_cuda = False``` is set in line 37, attacker.py. Therefore, if you don't have CUDA-supported GPU, then the Attack function won't work. See the below section ["Environment"](https://github.com/sShaAanGg/python-final/edit/main/README.md#environment) for more information.
+1. Attack will results in errors if ```use_cuda = False``` is set in line 37, attacker.py. Therefore, if you don't have CUDA-supported GPU, then the Attack function won't work. See the below section ["Environment"](https://github.com/sShaAanGg/python-final#environment) for more information.
 2. Launching the application (python3 main.py) takes more than 5 seconds to load the modules and models
 
 ## Running the application
