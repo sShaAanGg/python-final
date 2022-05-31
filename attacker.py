@@ -101,7 +101,7 @@ def attack(img, mode=None):
     npimg = np.transpose(npimg,(1,2,0))
     npimg = cv2.cvtColor(npimg, cv2.COLOR_BGR2RGB)
     # npimg = cv2.resize(npimg,(300,300))
-    cv2.imwrite("D:/python_final/python-final/result.png", npimg)
+    cv2.imwrite("result/result.png", npimg)
     
     return top_1, top_2, top_3
 

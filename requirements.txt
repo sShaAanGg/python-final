@@ -3,6 +3,6 @@ torch
 torchvision
 torchattacks
 opencv-python
-# tensorflow-gpu
-# tensorflow==2.6.0
+tensorflow
 pyside6
+# tensorflow-gpu

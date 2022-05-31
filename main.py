@@ -5,7 +5,7 @@ import os
 import PySide6
 from PySide6.QtWidgets import QApplication
 
-from ui_mainwindow import MainWindow
+from mainwindow import MainWindow
 
 
 dirname = os.path.dirname(PySide6.__file__)
