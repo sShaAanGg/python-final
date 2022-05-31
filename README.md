@@ -7,7 +7,7 @@ The final project of the course Programming in Python at NCU: An adversarial att
 
 ![Diagram](./Diagram.drawio.png)
 ## Issues to be solved in the future?
-1. Attack will results in errors if ```use_cuda = False``` is set in line 37, attacker.py
+1. Attack will results in errors if ```use_cuda = False``` is set in line 37, attacker.py. Therefore, if you don't have CUDA-supported GPU, then the Attack function won't work. See the below section ["Environment"](https://github.com/sShaAanGg/python-final#environment) for more information.
 2. Launching the application (python3 main.py) takes more than 5 seconds to load the modules and models
 
 ## Running the application
@@ -30,7 +30,10 @@ On Win10 (in powershell or cmd)
 .\project\Scripts\activate.bat
 ```
 ## Installing project requirements
+**CUDA must be installed and enabled [(CUDA Toolkit 11.7 Downloads)](https://developer.nvidia.com/cuda-downloads), otherwise attack() will result in errors**
 ```
+# In my Win10 environment I need to run the first command before the second to enable CUDA correctly
+pip install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu113
 pip install -r requirements.txt
 ```
 
@@ -44,6 +47,7 @@ https://www.tensorflow.org/api_docs/python/tf/keras/applications/resnet50/prepro
 [Qt for Python Official Website](https://doc.qt.io/qtforpython/index.html)
 
 ## Environment
+**CUDA must be installed and enabled [(CUDA Toolkit 11.7 Downloads)](https://developer.nvidia.com/cuda-downloads), otherwise attack() will result in errors**
 1. Linux Distribution: Ubuntu-20.04  
 Kernel version: 5.10.102.1-microsoft-standard-WSL2
 
